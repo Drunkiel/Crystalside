@@ -1,59 +1,48 @@
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class MissionController : MonoBehaviour
 {
-    public GameObject[] cards;
+    public MapPicker _mapPicker;
 
-    public NewMapData[] _mapDatas;
-    List<int> pickedMaps = new List<int>();
+    public Toggle[] toggles;
+    public UnityEvent unityEvent;
 
-    // Start is called before the first frame update
     void Start()
     {
-        SetMapsInCards();
-    }
-
-    private List<int> DrawMaps()
-    {
-        List<int> newPickedMaps = new List<int>();
-
-        for (int i = 0; i < cards.Length; i++)
-        {
-            int randomNumber = Random.Range(0, _mapDatas.Length);
-            if (!newPickedMaps.Contains(randomNumber)) newPickedMaps.Add(randomNumber);
-            else DrawMaps();
-        }
-
-        return newPickedMaps;
-    }
-
-    public void SetMapsInCards()
-    {
-        pickedMaps = DrawMaps();
-
-        for (int i = 0; i < pickedMaps.Count; i++)
-        {
-            cards[i].transform.GetChild(1).GetComponent<Image>().sprite = _mapDatas[i].mapImage;
-            cards[i].transform.GetChild(2).GetComponent<TMP_Text>().text = _mapDatas[i].mapName;
-            cards[i].transform.GetChild(3).GetComponent<TMP_Text>().text = _mapDatas[i].mapDescription;
-        }
+        _mapPicker.SetMapsInCards();
     }
 
     public void PickMap(int i)
     {
-        GameObject mapGenerator = GameObject.Find("Map Generator");
-        MapGenerator _mapGenerator = mapGenerator.GetComponent<MapGenerator>();
-        SpawnObject _spawnObject = mapGenerator.GetComponent<SpawnObject>();
+        _mapPicker.PickMap(i);
+        toggles[0].isOn = true;
+    }
 
-        _mapGenerator.noiseData = _mapDatas[i]._noiseData;
-        _mapGenerator.terrainData = _mapDatas[i]._terrainData;
-        _mapGenerator.textureData = _mapDatas[i]._textureData;
-        _spawnObject._objectsData = _mapDatas[i]._objectsData;
+    public void StartGame()
+    {
+        //Check if something is not checked
+        for (int i = 0; i < toggles.Length; i++)
+        {
+            if (!toggles[i].isOn) return;
+        }
 
-        _mapGenerator.DrawMapInEditor();
-        _spawnObject.SpawnRandomObjects();
+        unityEvent.Invoke();
+    }
+
+    public void EndGame()
+    {
+        //Set new player position
+        Transform player = GameObject.Find("Player").transform;
+        player.position = new Vector2(0, 1110);
+        player.rotation = Quaternion.identity;
+
+        //Setting everything to normal
+        for (int i = 0; i < toggles.Length; i++)
+        {
+            toggles[i].isOn = false;
+            _mapPicker.SetMapsInCards();
+        }
     }
 }
