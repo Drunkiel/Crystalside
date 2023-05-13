@@ -24,11 +24,6 @@ public class MapGenerator : MonoBehaviour
     Queue<MapThreadInfo<MapData>> mapDataThreadInfoQueue = new Queue<MapThreadInfo<MapData>>();
     Queue<MapThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<MapThreadInfo<MeshData>>();
 
-    void Awake()
-    {
-        TextureUpdate();
-    }
-
     void OnValuesUpdated()
     {
         if (!Application.isPlaying)

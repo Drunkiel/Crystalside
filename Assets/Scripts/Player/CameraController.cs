@@ -13,14 +13,13 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ChangeLockState(false);
+        ChangeLockState(true);
     }
 
     // Update is called once per frame
     void Update()
     {
         //Rotating
-        transform.position = cameraPlace.transform.position;
         transform.rotation = player.rotation;
 
         if (!PlayerController.isPlayerStopped) Rotate();
@@ -38,9 +37,14 @@ public class CameraController : MonoBehaviour
                 }
             }
 
-            if (hit.transform.name == "Spaceship")
+            if (hit.transform.TryGetComponent(out UIController _UIController))
             {
                 CursorController.instance.ChangeCursor(2);
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    _UIController.OpenCloseUI();
+                }
             }
         }
         else CursorController.instance.ChangeCursor(0);

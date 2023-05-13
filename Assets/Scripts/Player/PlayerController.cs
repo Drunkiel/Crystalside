@@ -14,9 +14,6 @@ public class PlayerController : MonoBehaviour
     public float airMultiplier;
     bool readyToJump;
 
-    [HideInInspector] public float walkSpeed;
-    [HideInInspector] public float sprintSpeed;
-
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
 
@@ -37,7 +34,6 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         rgBody = GetComponent<Rigidbody>();
-        rgBody.freezeRotation = true;
 
         readyToJump = true;
     }

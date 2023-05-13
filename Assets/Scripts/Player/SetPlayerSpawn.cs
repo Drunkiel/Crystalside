@@ -8,19 +8,6 @@ public class SetPlayerSpawn : MonoBehaviour
 
     public LayerMask layerMask;
 
-    // Start is called before the first frame update
-    void Awake()
-    {
-        Vector3 position = PickRandomLocation();
-        Quaternion rotation = SetRotation(position);
-
-        ship.transform.position = position;
-        ship.transform.rotation = rotation;
-
-        player.position = ship.transform.GetChild(0).position;
-        Physics.SyncTransforms();
-    }
-
     private Vector3 PickRandomLocation()
     {
         bool sideX()
@@ -63,5 +50,17 @@ public class SetPlayerSpawn : MonoBehaviour
         else if (position.z != 0) y = 180;
 
         return Quaternion.Euler(0, y, 0);
+    }
+
+    public void SetNewLocation()
+    {
+        Vector3 position = PickRandomLocation();
+        Quaternion rotation = SetRotation(position);
+
+        ship.transform.position = position;
+        ship.transform.rotation = rotation;
+
+        player.position = ship.transform.GetChild(0).position;
+/*        Physics.SyncTransforms();*/
     }
 }
