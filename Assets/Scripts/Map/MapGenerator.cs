@@ -47,14 +47,8 @@ public class MapGenerator : MonoBehaviour
     {
         get
         {
-            if (terrainData.useFlatShading)
-            {
-                return 95;
-            }
-            else
-            {
-                return 239;
-            }
+            if (terrainData.useFlatShading) return 95;
+            else return 239;
         }
     }
 

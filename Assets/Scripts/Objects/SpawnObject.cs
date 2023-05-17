@@ -8,13 +8,13 @@ public class SpawnObject : MonoBehaviour
 
     public LayerMask layerMask;
 
-    private const int mapSize = 450;
+    private const int mapSize = 660;
 
     public void SpawnRandomObjects()
     {
         DestroyObjectsIfExists();
 
-        int numberOfObjects = Random.Range(10, Mathf.RoundToInt(mapSize - mapSize * 0.2f));
+        int numberOfObjects = Random.Range(10, Mathf.RoundToInt(mapSize - mapSize * 0.1f));
 
         for (int i = 0; i < numberOfObjects; i++)
         {
@@ -47,7 +47,7 @@ public class SpawnObject : MonoBehaviour
         float z = Random.Range(-mapSize, mapSize + 1);
 
         RaycastHit hit;
-        Physics.Raycast(new Vector3(x, 100, z), transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, layerMask);
+        if (!Physics.Raycast(new Vector3(x, 100, z), transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, layerMask)) return RandomPosition();
 
         return new Vector3(x, 100 - hit.distance - 0.1f, z);
     }
