@@ -3,7 +3,6 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public Transform player;
-    public Transform cameraPlace;
     public float mouseSensitivity;
     private float xRotation;
 
