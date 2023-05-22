@@ -3,13 +3,15 @@ using UnityEngine;
 [CreateAssetMenu()]
 public class ObjectsData : ScriptableObject
 {
-    public GameObject[] prefabs;
-    public HeightRange[] heightRanges;
+    public Object[] objects;
 }
 
 [System.Serializable]
-public class HeightRange
+public class Object
 {
-    public float minHeight;
-    public float maxHeight;
+    public int id;
+    public GameObject prefab;
+    public float[] spawnHeight = new float[2];
+    public float[] spawnSize = new float[2];
+    public bool rotateZ;
 }

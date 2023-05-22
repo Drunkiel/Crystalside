@@ -9,6 +9,9 @@ public class SpawnObject : MonoBehaviour
     public LayerMask layerMask;
 
     private const int mapSize = 660;
+    private float objectSize;
+
+    private int pickedObject;
 
     public void SpawnRandomObjects()
     {
@@ -19,7 +22,12 @@ public class SpawnObject : MonoBehaviour
         for (int i = 0; i < numberOfObjects; i++)
         {
             Vector3 pickedPosition = RandomPosition();
-            Instantiate(PickObjectBasedOnHeight(pickedPosition.y), pickedPosition, Quaternion.Euler(0f, Random.Range(0, 359f), 0f), parent);
+            GameObject newObject = PickObjectBasedOnHeight(pickedPosition.y);
+            if (newObject != null)
+            {
+                newObject.transform.localScale = new Vector3(objectSize, objectSize, objectSize);
+                Instantiate(newObject, pickedPosition, RandomRotation(_objectsData.objects[pickedObject].rotateZ), parent);
+            }
         }
     }
 
@@ -52,16 +60,28 @@ public class SpawnObject : MonoBehaviour
         return new Vector3(x, 100 - hit.distance - 0.1f, z);
     }
 
+    private Quaternion RandomRotation(bool rotateZ)
+    {
+        if (rotateZ) return Quaternion.Euler(-90f, Random.Range(0, 359f), 0f);
+
+        return Quaternion.Euler(0f, Random.Range(0, 359f), 0f);
+    }
+
     private GameObject PickObjectBasedOnHeight(float height)
     {
-        List<GameObject> objects = new List<GameObject>();
-        objects.Clear();
+        List<int> objectsID = new List<int>();
+        objectsID.Clear();
 
-        for (int i = 0; i < _objectsData.heightRanges.Length; i++)
+        for (int i = 0; i < _objectsData.objects.Length; i++)
         {
-            if (height > _objectsData.heightRanges[i].minHeight && height <= _objectsData.heightRanges[i].maxHeight) objects.Add(_objectsData.prefabs[i]);
+            if (height > _objectsData.objects[i].spawnHeight[0] && height <= _objectsData.objects[i].spawnHeight[1]) objectsID.Add(_objectsData.objects[i].id);
         }
 
-        return objects[Random.Range(0, objects.Count)];
+        if (objectsID.Count <= 0) return null;
+
+        pickedObject = objectsID[Random.Range(0, objectsID.Count)];
+
+        objectSize = Random.Range(_objectsData.objects[pickedObject].spawnSize[0], _objectsData.objects[pickedObject].spawnSize[1]);
+        return _objectsData.objects[pickedObject].prefab;
     }
 }
