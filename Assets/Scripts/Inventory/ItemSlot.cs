@@ -1,19 +1,28 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour
 {
     public int slotID;
-    public string itemName;
+    public TMP_Text nameText;
     public int quantity;
     public TMP_Text quantityText;
+    public Image itemImage;
+    public int value;
+    public TMP_Text valueText;
 
-    public void QuantityUpdater()
+    void Start()
     {
-        quantity++;
-        quantityText.text = quantity.ToString();
+        slotID = GameObject.Find("Player").GetComponent<InventoryController>().slots.Count;
     }
 
+    public void UpdateQuantity()
+    {
+        quantity++;
+        quantityText.text = quantity + "/" + GameObject.Find("Player").GetComponent<InventoryController>().maxCapacity;
+    }
+/*
     public void DropItem()
     {
         foreach (Transform child in transform)
@@ -25,5 +34,5 @@ public class ItemSlot : MonoBehaviour
                 if (quantity <= 0) Destroy(child.GetChild(0).gameObject);
             }
         }
-    }
+    }*/
 }

@@ -13,6 +13,6 @@ public class SpawnItem : MonoBehaviour
 
     public void SpawnPickedItem()
     {
-        Instantiate(_itemData.itemOBJ, player.position, Quaternion.identity);
+/*        Instantiate(_itemData.itemOBJ, player.position, Quaternion.identity);*/
     }
 }

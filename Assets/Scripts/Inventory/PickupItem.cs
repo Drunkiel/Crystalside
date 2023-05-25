@@ -18,27 +18,27 @@ public class PickupItem : MonoBehaviour
 
         if (duplicatesID.Count > 0)
         {
+            //Adding to duplicates
             ItemSlot _itemSlot = _inventoryController.slots[duplicatesID[0]].GetComponent<ItemSlot>();
-            _itemSlot.QuantityUpdater();
+            _itemSlot.UpdateQuantity();
 
             if (_itemSlot.quantity == _inventoryController.maxCapacity) _inventoryController.isFull[duplicatesID[0]] = true;
             Destroy(gameObject);
         }
         else
         {
-            for (int i = 0; i < _inventoryController.slots.Length; i++)
-            {
-                ItemSlot _itemSlot = _inventoryController.slots[i].GetComponent<ItemSlot>();
+            //Creating new item
+            GameObject newSlot = Instantiate(_inventoryController.slotPrefab, _inventoryController.inventory.transform, false);
+            _inventoryController.slots.Add(newSlot);
+            _inventoryController.isFull.Add(false);
+            ItemSlot _itemSlot = newSlot.GetComponent<ItemSlot>();
+            _itemSlot.nameText.text = _itemData.itemName;
+            _itemSlot.value = _itemData.value;
+            _itemSlot.itemImage.sprite = _itemData.itemSprite;
+            _itemSlot.UpdateQuantity();
 
-                if (_inventoryController.isFull[i] == false && _itemSlot.quantity == 0)
-                {
-                    Instantiate(_itemData.itemBTN, _inventoryController.slots[i].transform.GetChild(0), false);
-                    _itemSlot.itemName = _itemData.itemName;
-                    _itemSlot.QuantityUpdater();
-                    Destroy(gameObject);
-                    break;
-                }
-            }
+            //Destroying object
+            Destroy(gameObject);
         }
 
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SpawnPopUp>().SetPopUp(_itemData);
@@ -49,12 +49,12 @@ public class PickupItem : MonoBehaviour
         List<int> duplicatesID = new List<int>();
         duplicatesID.Clear();
 
-        for (int i = 0; i < _inventoryController.slots.Length; i++)
+        for (int i = 0; i < _inventoryController.slots.Count; i++)
         {
             ItemSlot _itemSlot = _inventoryController.slots[i].GetComponent<ItemSlot>();
 
             if (_inventoryController.isFull[i] == false
-                && _itemSlot.itemName == _itemData.itemName) duplicatesID.Add(i);
+                && _itemSlot.nameText.text == _itemData.itemName) duplicatesID.Add(i);
         }
 
         return duplicatesID;

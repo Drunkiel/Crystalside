@@ -1,10 +1,14 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryController : MonoBehaviour
 {
-    public GameObject[] slots;
-    public bool[] isFull;
+    public List<GameObject> slots = new List<GameObject>();
+    public List<bool> isFull = new List<bool>();
     public int maxCapacity;
+
+    public GameObject inventory;
+    public GameObject slotPrefab;
 
     UIController _UIController;
 

@@ -4,9 +4,7 @@ using UnityEngine;
 public class ItemData : ScriptableObject
 {
     public int itemID;
+    public Sprite itemSprite;
     public string itemName;
-    public string itemDescription;
-
-    public GameObject itemBTN;
-    public GameObject itemOBJ;
+    public int value;
 }
