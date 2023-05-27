@@ -22,7 +22,6 @@ public class PickupItem : MonoBehaviour
             ItemSlot _itemSlot = _inventoryController.slots[duplicatesID[0]].GetComponent<ItemSlot>();
             _itemSlot.UpdateQuantity();
 
-            if (_itemSlot.quantity == _inventoryController.maxCapacity) _inventoryController.isFull[duplicatesID[0]] = true;
             Destroy(gameObject);
         }
         else
@@ -30,7 +29,6 @@ public class PickupItem : MonoBehaviour
             //Creating new item
             GameObject newSlot = Instantiate(_inventoryController.slotPrefab, _inventoryController.inventory.transform, false);
             _inventoryController.slots.Add(newSlot);
-            _inventoryController.isFull.Add(false);
             ItemSlot _itemSlot = newSlot.GetComponent<ItemSlot>();
             _itemSlot.nameText.text = _itemData.itemName;
             _itemSlot.value = _itemData.value;
@@ -53,8 +51,7 @@ public class PickupItem : MonoBehaviour
         {
             ItemSlot _itemSlot = _inventoryController.slots[i].GetComponent<ItemSlot>();
 
-            if (_inventoryController.isFull[i] == false
-                && _itemSlot.nameText.text == _itemData.itemName) duplicatesID.Add(i);
+            if (_itemSlot.nameText.text == _itemData.itemName) duplicatesID.Add(i);
         }
 
         return duplicatesID;

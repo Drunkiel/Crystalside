@@ -20,7 +20,7 @@ public class ItemSlot : MonoBehaviour
     public void UpdateQuantity()
     {
         quantity++;
-        quantityText.text = quantity + "/" + GameObject.Find("Player").GetComponent<InventoryController>().maxCapacity;
+        quantityText.text = quantity.ToString();
     }
 /*
     public void DropItem()

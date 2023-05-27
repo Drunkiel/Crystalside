@@ -4,8 +4,6 @@ using UnityEngine;
 public class InventoryController : MonoBehaviour
 {
     public List<GameObject> slots = new List<GameObject>();
-    public List<bool> isFull = new List<bool>();
-    public int maxCapacity;
 
     public GameObject inventory;
     public GameObject slotPrefab;
@@ -19,7 +17,7 @@ public class InventoryController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I) && GameController.isGamePlaying)
         {
             _UIController.OpenCloseUI();
         }
