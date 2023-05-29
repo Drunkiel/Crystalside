@@ -45,7 +45,23 @@ public class MapPicker
         {
             cards[i].transform.GetChild(1).GetComponent<Image>().sprite = _mapDatas[i].mapImage;
             cards[i].transform.GetChild(2).GetComponent<TMP_Text>().text = _mapDatas[i].mapName;
-            cards[i].transform.GetChild(3).GetComponent<TMP_Text>().text = _mapDatas[i].mapDescription;
+/*            cards[i].transform.GetChild(3).GetComponent<TMP_Text>().text = _mapDatas[i].mapInformations;*/
+
+            switch (_mapDatas[i].mapDangerLevel)
+            {
+                case MapDangerLevel.Easy:
+                    cards[i].transform.GetChild(4).GetChild(0).GetComponent<Image>().color = new Color32(111, 255, 75, 255);
+                    break;
+                case MapDangerLevel.Medium:
+                    cards[i].transform.GetChild(4).GetChild(0).GetComponent<Image>().color = new Color32(255, 220, 75, 255);
+                    break;
+                case MapDangerLevel.Hard:
+                    cards[i].transform.GetChild(4).GetChild(0).GetComponent<Image>().color = new Color32(255, 90, 75, 255);
+                    break;
+                case MapDangerLevel.EpicHard:
+                    cards[i].transform.GetChild(4).GetChild(0).GetComponent<Image>().color = new Color32(255, 75, 150, 255);
+                    break;
+            }
         }
     }
 
@@ -53,7 +69,7 @@ public class MapPicker
     {
         for (int i = 0; i < pickedMaps.Count; i++)
         {
-            cards[i].transform.GetChild(4).GetComponent<Button>().interactable = isActive;
+            cards[i].transform.GetChild(5).GetComponent<Button>().interactable = isActive;
         }
     }
 
