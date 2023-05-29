@@ -9,6 +9,7 @@ public class UIController : MonoBehaviour
     {
         isUIOpen = !isUIOpen;
         UI.SetActive(isUIOpen);
+        GameController.isGamePaused = isUIOpen;
 
         CameraController.ChangeLockState(isUIOpen);
     }
