@@ -8,7 +8,8 @@ public class SpawnPopUp : MonoBehaviour
 
     public GameObject[] popUps;
     public Transform parent;
-    public Sprite errorSprite;
+
+    public Sprite[] attentionSprites;
 
     void Awake()
     {
@@ -22,10 +23,10 @@ public class SpawnPopUp : MonoBehaviour
         newPopUp.transform.GetChild(3).GetComponent<TMP_Text>().text = _itemData.name;   
     }
 
-    public void ErrorPopUp(string errorText)
+    public void AttentionPopUp(string attentionText, int i)
     {
         GameObject newPopUp = Instantiate(popUps[1], parent.position, Quaternion.identity, parent);
-        newPopUp.transform.GetChild(1).GetComponent<Image>().sprite = errorSprite;
-        newPopUp.transform.GetChild(2).GetComponent<TMP_Text>().text = errorText;
+        newPopUp.transform.GetChild(1).GetComponent<Image>().sprite = attentionSprites[i];
+        newPopUp.transform.GetChild(2).GetComponent<TMP_Text>().text = attentionText;
     }
 }
