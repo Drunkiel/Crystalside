@@ -6,12 +6,12 @@ using UnityEngine.UI;
 [System.Serializable]
 public class MapPicker
 {
+    public static bool isMapPicked;
+
     public GameObject[] cards;
 
     public NewMapData[] _mapDatas;
     private List<int> pickedMaps = new List<int>();
-
-    public bool isMapPicked;
 
     private List<int> DrawMaps()
     {
