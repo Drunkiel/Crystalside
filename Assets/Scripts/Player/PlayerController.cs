@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public static bool isPlayerStopped;
+    public StatisticsController _statisticsController;
 
     [Header("Movement")]
     public float moveSpeed;
@@ -77,12 +78,9 @@ public class PlayerController : MonoBehaviour
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         // on ground
-        if (grounded)
-            rgBody.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-
+        if (grounded) rgBody.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
         // in air
-        else if (!grounded)
-            rgBody.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+        else if (!grounded) rgBody.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
     }
 
     private void SpeedControl()

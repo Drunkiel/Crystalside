@@ -4,31 +4,24 @@ public class GameController : MonoBehaviour
 {
     public static bool isGamePlaying;
     public static bool isGamePaused;
-    public float timeLeft;
 
     public MissionController _missionController;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void StartGame()
     {
+        //Check if everything is alright
+        if (!MapPicker.isMapPicked)
+        {
+            SpawnPopUp.instance.AttentionPopUp("Map is not picked", 0);
+            return;
+        }
+
+        if (_missionController._fuelController.CheckIfEnoughFuel(MissionInfo.instance.requiredFuel))
+            _missionController._fuelController.UseFuel(MissionInfo.instance.requiredFuel);
+        else return;
+
         isGamePlaying = true;
         isGamePaused = false;
-        //Check if something is not checked
-        for (int i = 0; i < _missionController.toggles.Length; i++)
-        {
-            if (!_missionController.toggles[i].isOn) return;
-        }
 
         _missionController.unityEvent.Invoke();
     }
@@ -40,19 +33,11 @@ public class GameController : MonoBehaviour
 
         //Set new player position
         Transform player = GameObject.Find("Player").transform;
-        player.position = new Vector2(0, 1110);
+        player.position = new Vector2(0, 1102);
         player.rotation = Quaternion.identity;
+        Physics.SyncTransforms();
 
         //Setting everything to normal
-        for (int i = 0; i < _missionController.toggles.Length; i++)
-        {
-            _missionController.toggles[i].isOn = false;
-            _missionController._mapPicker.SetMapsInCards();
-        }
-    }
-
-    public void SetNewStoper()
-    {
-
+        _missionController.ResetMap();
     }
 }
