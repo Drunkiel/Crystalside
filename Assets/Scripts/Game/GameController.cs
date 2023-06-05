@@ -5,7 +5,18 @@ public class GameController : MonoBehaviour
     public static bool isGamePlaying;
     public static bool isGamePaused;
 
+    public GameTimer _gameTimer;
     public MissionController _missionController;
+    public PlayerController _playerController;
+
+    void Update()
+    {
+        if (isGamePlaying)
+        {
+            if (_gameTimer.timeLeft > 0) _gameTimer.UpdateTimer();
+            else _playerController._statisticsController.TakeOxygen(5);
+        }
+    }
 
     public void StartGame()
     {
@@ -23,6 +34,7 @@ public class GameController : MonoBehaviour
         isGamePlaying = true;
         isGamePaused = false;
 
+        _gameTimer.SetNewTimer(1);
         _missionController.unityEvent.Invoke();
     }
 
