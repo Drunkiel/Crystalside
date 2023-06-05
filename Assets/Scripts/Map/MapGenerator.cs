@@ -29,6 +29,7 @@ public class MapGenerator : MonoBehaviour
         if (!Application.isPlaying)
         {
             DrawMapInEditor();
+            TextureUpdate();
         }
     }
 

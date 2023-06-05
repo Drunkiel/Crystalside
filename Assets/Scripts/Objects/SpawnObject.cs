@@ -9,7 +9,7 @@ public class SpawnObject : MonoBehaviour
     public LayerMask layerMask;
 
     private const int mapSize = 660;
-    private float objectSize;
+    private float objectSize = 1;
 
     private int pickedObject;
 
@@ -81,7 +81,8 @@ public class SpawnObject : MonoBehaviour
 
         pickedObject = objectsID[Random.Range(0, objectsID.Count)];
 
-        objectSize = Random.Range(_objectsData.objects[pickedObject].spawnSize[0], _objectsData.objects[pickedObject].spawnSize[1]);
+        if (_objectsData.objects[pickedObject].spawnSize[0] != _objectsData.objects[pickedObject].spawnSize[1])
+            objectSize = Random.Range(_objectsData.objects[pickedObject].spawnSize[0], _objectsData.objects[pickedObject].spawnSize[1]);
         return _objectsData.objects[pickedObject].prefab;
     }
 }
