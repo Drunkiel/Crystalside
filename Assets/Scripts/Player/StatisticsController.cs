@@ -15,6 +15,8 @@ public class StatisticsController
     public float oxygenCooldown;
     private float resetCooldown = 1f;
 
+    public UIController[] _UIControllers;
+
     public void TakeDamage(int value, bool instantDamage = false)
     {
         if (damageCooldown > 0)
@@ -24,13 +26,8 @@ public class StatisticsController
         }
         else
         {
-            if (health - value > 0) health -= value;
-            else
-            {
-                SpawnPopUp.instance.AttentionPopUp("Player died", 0);
-                health = 100;
-                oxygen = 100;
-            }
+            if (health - value >= 0) health -= value;
+            if(health == 0) PlayerDeath();
 
             UpdateTexts();
             damageCooldown = resetCooldown;
@@ -48,6 +45,16 @@ public class StatisticsController
             UpdateTexts();
             oxygenCooldown = resetCooldown;
         }
+    }
+
+    private void PlayerDeath()
+    {
+        GameController.isGamePlaying = false;
+        GameController.isGamePaused = false;
+        PlayerController.isPlayerStopped = true;
+
+        if (_UIControllers[0].isUIOpen) _UIControllers[0].OpenCloseUI();
+        _UIControllers[1].OpenCloseUI();
     }
 
     private void UpdateTexts()

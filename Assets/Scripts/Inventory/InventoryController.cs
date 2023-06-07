@@ -8,12 +8,7 @@ public class InventoryController : MonoBehaviour
     public GameObject inventory;
     public GameObject slotPrefab;
 
-    UIController _UIController;
-
-    void Start()
-    {
-        _UIController = GetComponent<UIController>();
-    }
+    public UIController _UIController;
 
     void Update()
     {

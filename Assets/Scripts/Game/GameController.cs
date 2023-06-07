@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -51,5 +52,10 @@ public class GameController : MonoBehaviour
 
         //Setting everything to normal
         _missionController.ResetMap();
+    }
+
+    public void EndRun()
+    {
+        SceneManager.LoadScene(0);
     }
 }
