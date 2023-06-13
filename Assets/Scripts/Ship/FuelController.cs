@@ -16,11 +16,6 @@ public class FuelController : MonoBehaviour
     public TMP_Text tankCapacityText;
     public TMP_Text fuelConsumptionText;
 
-    private void Start()
-    {
-        UpdateFuelTankTexts();
-    }
-
     public void UpdateFuelTankTexts()
     {
         fuelCostText.text = fuelCost.ToString();
@@ -54,15 +49,9 @@ public class FuelController : MonoBehaviour
                 _statisticsController.money -= fuelCost;
                 UpdateFuelTankTexts();
             }
-            else
-            {
-                SpawnPopUp.instance.AttentionPopUp("Not enough cash", 0);
-            }
+            else SpawnPopUp.instance.AttentionPopUp("Not enough cash", 0);
         }
-        else
-        {
-            SpawnPopUp.instance.AttentionPopUp("Tank is full", 1);
-        }
+        else SpawnPopUp.instance.AttentionPopUp("Tank is full", 1);
     }
 
     public bool CheckIfEnoughFuel(int value)

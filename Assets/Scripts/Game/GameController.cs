@@ -12,16 +12,16 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        if (isGamePlaying)
+        if (isGamePlaying && !isGamePaused)
         {
             if (_gameTimer.timeLeft > 0) _gameTimer.UpdateTimer();
             else _playerController._statisticsController.TakeOxygen(5);
         }
     }
 
-    public void StartGame()
+    public void StartRun()
     {
-        //Check if everything is alright
+        //Check if everything is setted
         if (!MapPicker.isMapPicked)
         {
             SpawnPopUp.instance.AttentionPopUp("Map is not picked", 0);
@@ -39,7 +39,7 @@ public class GameController : MonoBehaviour
         _missionController.unityEvent.Invoke();
     }
 
-    public void EndGame()
+    public void EndRun()
     {
         isGamePlaying = false;
         isGamePaused = false;
@@ -48,14 +48,17 @@ public class GameController : MonoBehaviour
         Transform player = GameObject.Find("Player").transform;
         player.position = new Vector2(0, 1102);
         player.rotation = Quaternion.identity;
+        StatisticsController _statisticsController = player.GetComponent<PlayerController>()._statisticsController;
+        _statisticsController.TakeOxygen(-(100 - _statisticsController.oxygen), true);
         Physics.SyncTransforms();
 
         //Setting everything to normal
         _missionController.ResetMap();
     }
 
-    public void EndRun()
+    public void EndGame()
     {
+        EndRun();
         SceneManager.LoadScene(0);
     }
 }

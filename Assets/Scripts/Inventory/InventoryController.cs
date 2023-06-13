@@ -14,6 +14,7 @@ public class InventoryController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I) && GameController.isGamePlaying)
         {
+            GameController.isGamePaused = _UIController.isUIOpen;
             _UIController.OpenCloseUI();
         }
     }

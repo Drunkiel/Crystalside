@@ -19,23 +19,23 @@ public class StatisticsController
 
     public void TakeDamage(int value, bool instantDamage = false)
     {
-        if (damageCooldown > 0)
-        {
-            if (!instantDamage) damageCooldown -= Time.deltaTime;
-            else damageCooldown = 0;
-        }
+        if(instantDamage) damageCooldown = 0;
+
+        if (damageCooldown > 0) damageCooldown -= Time.deltaTime;
         else
         {
             if (health - value >= 0) health -= value;
-            if(health == 0) PlayerDeath();
+            if (health == 0) PlayerDeath();
 
             UpdateTexts();
             damageCooldown = resetCooldown;
         }
     }
 
-    public void TakeOxygen(int value)
+    public void TakeOxygen(int value, bool instantTake = false)
     {
+        if (instantTake) oxygenCooldown = 0;
+
         if (oxygenCooldown > 0) oxygenCooldown -= Time.deltaTime;
         else
         {

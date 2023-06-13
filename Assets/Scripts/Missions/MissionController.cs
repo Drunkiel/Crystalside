@@ -30,6 +30,7 @@ public class MissionController : MonoBehaviour
         MissionInfo.instance.destinationDistance = 0;
         MissionInfo.instance.requiredFuel = 0;
         MissionInfo.instance.UpdateTexts();
+        MapPicker.isMapPicked = false;
         _mapPicker.SetMapsInCards();
     }
 }
