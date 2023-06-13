@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84199b1e2db54334cbb96689b28a6ed3, type: 3}
+  m_Name: Objects
+  m_EditorClassIdentifier: 
+  objects:
+  - id: 0
+    prefab: {fileID: 6117783013620700633, guid: fa8a4a2c620928e4a8a4ecabee89f0b5, type: 3}
+    spawnHeight:
+    - -1
+    - 0.3
+    spawnSize:
+    - 1
+    - 2
+    rotateZ: 0
+  - id: 1
+    prefab: {fileID: 3164607828578136105, guid: 53f3ba549c8ae8149b45656efe22f6a0, type: 3}
+    spawnHeight:
+    - -1
+    - 0.3
+    spawnSize:
+    - 1
+    - 2
+    rotateZ: 1
+  - id: 2
+    prefab: {fileID: 7869284453718432521, guid: 550a9fcd1fbb96b45b7f5dcb8929037d, type: 3}
+    spawnHeight:
+    - -1
+    - 0.3
+    spawnSize:
+    - 1
+    - 2
+    rotateZ: 0
+  - id: 3
+    prefab: {fileID: 168064, guid: fb8ae0828a555f74996970b8d0495f15, type: 3}
+    spawnHeight:
+    - 3
+    - 20
+    spawnSize:
+    - 1
+    - 8
+    rotateZ: 0
+  - id: 4
+    prefab: {fileID: 149218, guid: fc05c8bfad7df5a4abe568aca7403b9e, type: 3}
+    spawnHeight:
+    - 3
+    - 20
+    spawnSize:
+    - 1
+    - 8
+    rotateZ: 0
+  - id: 5
+    prefab: {fileID: 116970, guid: e4563b5c1404fc246b16cfb1d56a8ce6, type: 3}
+    spawnHeight:
+    - 3
+    - 20
+    spawnSize:
+    - 1
+    - 8
+    rotateZ: 0
+  - id: 6
+    prefab: {fileID: 8126006226487508222, guid: 591d16177c712214eb2130996326b463, type: 3}
+    spawnHeight:
+    - 3
+    - 100
+    spawnSize:
+    - 1
+    - 5
+    rotateZ: 1
+  - id: 7
+    prefab: {fileID: 7296309576268356513, guid: 2866c79d491bb0e4fb4b5a0f9f0932a9, type: 3}
+    spawnHeight:
+    - 70
+    - 100
+    spawnSize:
+    - 1
+    - 1
+    rotateZ: 0
+  structures: []
