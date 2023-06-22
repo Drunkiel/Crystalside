@@ -1,18 +1,28 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
     private bool isOptionsMenuOpen;
+    public GameObject overwriteUI;
 
-    public void NewGame()
+    public UnityEvent unityEvent;
+    public SaveLoadController _saveLoadController;
+
+    private void Start()
     {
-        SceneManager.LoadScene(1);
+        if (SaveLoadController.CheckIfSaveExists()) unityEvent.Invoke();
     }
 
-    public void ContinueGame()
+    public void StartGame(bool checkForSave)
     {
-        //Some code here
+        if (checkForSave && SaveLoadController.CheckIfSaveExists()) overwriteUI.SetActive(true);
+        else
+        {
+            _saveLoadController.NewSave();
+            SceneManager.LoadScene(1);
+        }
     }
 
     public void Options()
