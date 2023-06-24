@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class SaveLoadController : MonoBehaviour
 {
+    public static bool isNewSave;
+
+    public PlayerController _playerController;
+
     private static string jsonSavePath;
     public SaveData _save;
 
@@ -17,7 +21,11 @@ public class SaveLoadController : MonoBehaviour
         FileStream fileStream = new FileStream(jsonSavePath, FileMode.OpenOrCreate);
 
         //Data to save
+        _save._playerData.health = _playerController._statisticsController.health + 1;
+        _save._playerData.money = _playerController._statisticsController.money;
 
+
+        _playerController._statisticsController.TakeDamage(1, true);
 
         //Saving data
         SaveData(fileStream);
@@ -25,6 +33,8 @@ public class SaveLoadController : MonoBehaviour
 
     public void NewSave()
     {
+        isNewSave = true;
+
         FileStream fileStream = new FileStream(jsonSavePath, FileMode.Create);
         SaveData(fileStream);
     }
@@ -39,6 +49,12 @@ public class SaveLoadController : MonoBehaviour
 
     public void Load()
     {
+        if (isNewSave)
+        {
+            isNewSave = false;
+            return;
+        }
+
         //Load data
         string json = ReadFromFile();
         JsonUtility.FromJsonOverwrite(json, _save);

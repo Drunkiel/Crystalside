@@ -19,7 +19,7 @@ public class StatisticsController
 
     public void TakeDamage(int value, bool instantDamage = false)
     {
-        if(instantDamage) damageCooldown = 0;
+        if (instantDamage) damageCooldown = 0;
 
         if (damageCooldown > 0) damageCooldown -= Time.deltaTime;
         else
