@@ -15,9 +15,10 @@ public class SpawnObject : MonoBehaviour
 
     public void SpawnRandomObjects()
     {
+        //Destroy old objects
         DestroyObjectsIfExists();
 
-        int numberOfObjects = Random.Range(10, Mathf.RoundToInt(mapSize - mapSize * 0.1f));
+        int numberOfObjects = int.Parse(MapGenerator.seed.ToString().Substring(0, 4)) / int.Parse(MapGenerator.seed.ToString().Substring(8, 1));
 
         for (int i = 0; i < numberOfObjects; i++)
         {
@@ -35,16 +36,16 @@ public class SpawnObject : MonoBehaviour
     {
         if (parent.childCount > 0)
         {
-            List<GameObject> a = new List<GameObject>();
+            List<GameObject> allObjects = new List<GameObject>();
 
             for (int i = 0; i < parent.childCount; i++)
             {
-                a.Add(parent.GetChild(i).gameObject);
+                allObjects.Add(parent.GetChild(i).gameObject);
             }
 
-            for (int i = 0; i < parent.childCount; i++)
+            foreach (GameObject singleObject in allObjects)
             {
-                Destroy(a[i]);
+                Destroy(singleObject);
             }
         }
     }
@@ -56,6 +57,7 @@ public class SpawnObject : MonoBehaviour
 
         RaycastHit hit;
         if (!Physics.Raycast(new Vector3(x, 100, z), transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, layerMask)) return RandomPosition();
+        if (Vector3.Distance(hit.point, Vector3.zero) > mapSize) return RandomPosition();
 
         return new Vector3(x, 100 - hit.distance - 0.1f, z);
     }

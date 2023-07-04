@@ -7,19 +7,28 @@ public class PauseMenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !GameController.isGamePaused) PauseGame();
-        else if(Input.GetKeyDown(KeyCode.Escape) && GameController.isGamePaused) UnPauseGame();
+        if (GameController.isGamePlaying)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) && !GameController.isGamePaused) PauseGame();
+        }
     }
 
     private void PauseGame()
     {
         GameController.isGamePlaying = false;
         GameController.isGamePaused = true;
+        _UIController.OpenCloseUI();
     }
 
-    private void UnPauseGame()
+    public void UnPauseGame()
     {
         GameController.isGamePlaying = true;
         GameController.isGamePaused = false;
+        _UIController.OpenCloseUI();
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

@@ -17,7 +17,7 @@ public class NoiseData : UpdatableData
 
 	public int GetRandomSeed()
 	{
-		seed = Random.Range(0, 999999999);
+		seed = Random.Range(100000000, 999999999);
 		return seed;
 	}
 

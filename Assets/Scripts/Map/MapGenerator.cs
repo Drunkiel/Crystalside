@@ -13,6 +13,7 @@ public class MapGenerator : MonoBehaviour
     public TextureData textureData;
 
     public Material terrainMaterial;
+    public static int seed;
 
     [Range(0, 6)]
     public int editorPreviewLOD;
@@ -71,6 +72,7 @@ public class MapGenerator : MonoBehaviour
             display.DrawTexture(TextureGenerator.TextureFromHeightMap(FalloffGenerator.GenerateFalloffMap(mapChunkSize)));
         }
 
+        seed = noiseData.seed;
         TextureUpdate();
     }
 

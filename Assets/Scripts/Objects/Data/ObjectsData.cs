@@ -18,6 +18,15 @@ public class Object
 }
 
 [System.Serializable]
+public class Biomes
+{
+    public string name;
+    public float minHeight;
+    public float maxHeight;
+    public int[] defineObjectsSeed;
+}
+
+[System.Serializable]
 public class Structure
 {
     public int id;
