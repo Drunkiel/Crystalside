@@ -4,6 +4,7 @@ using UnityEngine;
 public class ObjectsData : ScriptableObject
 {
     public Object[] objects;
+    public Biomes[] biomes;
     public Structure[] structures;
 }
 
@@ -23,7 +24,8 @@ public class Biomes
     public string name;
     public float minHeight;
     public float maxHeight;
-    public int[] defineObjectsSeed;
+    public int[] defineObjectsSeed = new int[3];
+    public int spawnableObjects;
 }
 
 [System.Serializable]

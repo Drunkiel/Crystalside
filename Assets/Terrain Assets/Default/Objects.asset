@@ -85,4 +85,25 @@ MonoBehaviour:
     - 1
     - 1
     rotateZ: 0
+  biomes:
+  - name: Ocean
+    minHeight: -1
+    maxHeight: 1
+    defineObjectsSeed: 000000000100000002000000
+    spawnableObjects: -1976
+  - name: Plains
+    minHeight: 3
+    maxHeight: 25
+    defineObjectsSeed: 010000000200000003000000
+    spawnableObjects: -1738
+  - name: Mountains
+    minHeight: 25
+    maxHeight: 60
+    defineObjectsSeed: 020000000300000004000000
+    spawnableObjects: -1196
+  - name: Snow Peak
+    minHeight: 60
+    maxHeight: 100
+    defineObjectsSeed: 030000000400000005000000
+    spawnableObjects: 52
   structures: []

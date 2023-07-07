@@ -8,9 +8,10 @@ public class SpawnObject : MonoBehaviour
 
     public LayerMask layerMask;
 
-    private const int mapSize = 660;
+    private const int mapSize = 600;
     private float objectSize = 1;
 
+    public int numberOfObjects;
     private int pickedObject;
 
     public void SpawnRandomObjects()
@@ -18,7 +19,7 @@ public class SpawnObject : MonoBehaviour
         //Destroy old objects
         DestroyObjectsIfExists();
 
-        int numberOfObjects = int.Parse(MapGenerator.seed.ToString().Substring(0, 4)) / int.Parse(MapGenerator.seed.ToString().Substring(8, 1));
+        numberOfObjects = SetNumberOfObjects();
 
         for (int i = 0; i < numberOfObjects; i++)
         {
@@ -30,6 +31,28 @@ public class SpawnObject : MonoBehaviour
                 Instantiate(newObject, pickedPosition, RandomRotation(_objectsData.objects[pickedObject].rotateZ), parent);
             }
         }
+    }
+
+    private int SetNumberOfObjects()
+    {
+        int seed = MapGenerator.seed;
+        int[] numbers = new int[9];
+
+        for (int i = 0; i < 9; i++)
+        {
+            numbers[i] = seed % 10;
+            seed /= 10; 
+        }
+
+        int allObjectsToSpawn = 0;
+
+        foreach (var biome in _objectsData.biomes)
+        {
+            biome.spawnableObjects = (numbers[biome.defineObjectsSeed[0]] + numbers[biome.defineObjectsSeed[1]] + numbers[biome.defineObjectsSeed[2]]) * numbers[numbers.Length - 1];
+            allObjectsToSpawn += biome.spawnableObjects;
+        }
+
+        return allObjectsToSpawn;
     }
 
     private void DestroyObjectsIfExists()
@@ -56,8 +79,13 @@ public class SpawnObject : MonoBehaviour
         float z = Random.Range(-mapSize, mapSize + 1);
 
         RaycastHit hit;
-        if (!Physics.Raycast(new Vector3(x, 100, z), transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, layerMask)) return RandomPosition();
-        if (Vector3.Distance(hit.point, Vector3.zero) > mapSize) return RandomPosition();
+        if (!Physics.Raycast(new Vector3(x, 100, z), transform.TransformDirection(Vector3.down), out hit, 150f, layerMask)
+            && Vector3.Distance(hit.point, Vector3.zero) > mapSize) return RandomPosition();
+        for (int i = 0; i < _objectsData.biomes.Length; i++)
+        {
+            if (!(hit.point.y > _objectsData.biomes[i].minHeight && hit.point.y <= _objectsData.biomes[i].maxHeight) && _objectsData.biomes[i].spawnableObjects > 0) return RandomPosition();
+            else _objectsData.biomes[i].spawnableObjects -= 1;
+        }
 
         return new Vector3(x, 100 - hit.distance - 0.1f, z);
     }
