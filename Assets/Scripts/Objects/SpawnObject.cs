@@ -8,7 +8,7 @@ public class SpawnObject : MonoBehaviour
 
     public LayerMask layerMask;
 
-    private const int mapSize = 600;
+    private const int mapSize = 640;
     private float objectSize = 1;
 
     public int numberOfObjects;
@@ -19,8 +19,10 @@ public class SpawnObject : MonoBehaviour
         //Destroy old objects
         DestroyObjectsIfExists();
 
+        //Setting new number of objects
         numberOfObjects = SetNumberOfObjects();
 
+        //Spawning new objects
         for (int i = 0; i < numberOfObjects; i++)
         {
             Vector3 pickedPosition = RandomPosition();
@@ -28,8 +30,9 @@ public class SpawnObject : MonoBehaviour
             if (newObject != null)
             {
                 newObject.transform.localScale = new Vector3(objectSize, objectSize, objectSize);
-                Instantiate(newObject, pickedPosition, RandomRotation(_objectsData.objects[pickedObject].rotateZ), parent);
+                Instantiate(newObject, pickedPosition, NewRotation(_objectsData.objects[pickedObject].rotateZ), parent);
             }
+            else numberOfObjects -= 1;
         }
     }
 
@@ -75,24 +78,21 @@ public class SpawnObject : MonoBehaviour
 
     private Vector3 RandomPosition()
     {
+        //Random position
         float x = Random.Range(-mapSize, mapSize + 1);
         float z = Random.Range(-mapSize, mapSize + 1);
 
+        //Send raycast
         RaycastHit hit;
         if (!Physics.Raycast(new Vector3(x, 100, z), transform.TransformDirection(Vector3.down), out hit, 150f, layerMask)
-            && Vector3.Distance(hit.point, Vector3.zero) > mapSize) return RandomPosition();
-        for (int i = 0; i < _objectsData.biomes.Length; i++)
-        {
-            if (!(hit.point.y > _objectsData.biomes[i].minHeight && hit.point.y <= _objectsData.biomes[i].maxHeight) && _objectsData.biomes[i].spawnableObjects > 0) return RandomPosition();
-            else _objectsData.biomes[i].spawnableObjects -= 1;
-        }
+            || Vector3.Distance(hit.point, Vector3.zero) > mapSize) return RandomPosition();
 
         return new Vector3(x, 100 - hit.distance - 0.1f, z);
     }
 
-    private Quaternion RandomRotation(bool rotateZ)
+    private Quaternion NewRotation(bool rotateZ)
     {
-        if (rotateZ) return Quaternion.Euler(-90f, Random.Range(0, 359f), 0f);
+       if (rotateZ) return Quaternion.Euler(-90f, Random.Range(0, 359f), 0f);
 
         return Quaternion.Euler(0f, Random.Range(0, 359f), 0f);
     }
