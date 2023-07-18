@@ -3,6 +3,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public Transform player;
+    public Transform virtualCamera;
     public float mouseSensitivity;
     private float xRotation;
 
@@ -18,8 +19,9 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Rotating
-        transform.rotation = player.rotation;
+        //Rotating virtual camera
+        virtualCamera.rotation = player.rotation;
+        virtualCamera.Rotate(xRotation, 0f, 0f);
 
         if (!PlayerController.isPlayerStopped) Rotate();
 
@@ -30,20 +32,14 @@ public class CameraController : MonoBehaviour
             {
                 CursorController.instance.ChangeCursor(1);
 
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    _pickupItem.Pickup();
-                }
+                if (Input.GetKeyDown(KeyCode.E)) _pickupItem.Pickup();
             }
 
             if (hit.transform.TryGetComponent(out UIController _UIController))
             {
                 CursorController.instance.ChangeCursor(2);
 
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    _UIController.OpenCloseUI();
-                }
+                if (Input.GetKeyDown(KeyCode.E)) _UIController.OpenCloseUI();
             }
         }
         else CursorController.instance.ChangeCursor(0);
@@ -64,8 +60,6 @@ public class CameraController : MonoBehaviour
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -40f, 90f);
-
-        transform.Rotate(xRotation, 0f, 0f);
         player.Rotate(Vector3.up * mouseX);
     }
 }

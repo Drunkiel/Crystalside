@@ -8,7 +8,7 @@ public class SpawnObject : MonoBehaviour
 
     public LayerMask layerMask;
 
-    private const int mapSize = 640;
+    private const int mapSize = 660;
     private float objectSize = 1;
 
     public int numberOfObjects;
