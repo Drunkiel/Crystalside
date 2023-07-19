@@ -6,6 +6,9 @@ public class CameraController : MonoBehaviour
     public Transform virtualCamera;
     public float mouseSensitivity;
     private float xRotation;
+    private float minXRotation;
+    private float maxXRotation;
+    public Animator playerAnim;
 
     public float pickupDistance;
     public LayerMask layerMask;
@@ -26,6 +29,39 @@ public class CameraController : MonoBehaviour
         if (!PlayerController.isPlayerStopped) Rotate();
 
         //Looking for objects
+        LookForInteraction();
+    }
+
+    public static void ChangeLockState(bool toBlock)
+    {
+        PlayerController.isPlayerStopped = toBlock;
+
+        if (toBlock) Cursor.lockState = CursorLockMode.None;
+        else Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    private void Rotate()
+    {
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * 3 * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * 3 * Time.deltaTime;
+
+        xRotation -= mouseY;
+        if (playerAnim.GetBool("Jump"))
+        {
+            minXRotation = 0f;
+            maxXRotation = 120f;
+        }
+        else if (minXRotation == 0)
+        {
+            minXRotation = -40f;
+            maxXRotation = 90f;
+        }
+        xRotation = Mathf.Clamp(xRotation, minXRotation, maxXRotation);
+        player.Rotate(Vector3.up * mouseX);
+    }
+
+    private void LookForInteraction()
+    {
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, pickupDistance, layerMask))
         {
             if (hit.transform.TryGetComponent(out PickupItem _pickupItem))
@@ -43,23 +79,5 @@ public class CameraController : MonoBehaviour
             }
         }
         else CursorController.instance.ChangeCursor(0);
-    }
-
-    public static void ChangeLockState(bool toBlock)
-    {
-        PlayerController.isPlayerStopped = toBlock;
-
-        if (toBlock) Cursor.lockState = CursorLockMode.None;
-        else Cursor.lockState = CursorLockMode.Locked;
-    }
-
-    private void Rotate()
-    {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * 3 * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * 3 * Time.deltaTime;
-
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -40f, 90f);
-        player.Rotate(Vector3.up * mouseX);
     }
 }

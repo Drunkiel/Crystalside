@@ -4,7 +4,6 @@ using UnityEngine;
 public class SpawnObject : MonoBehaviour
 {
     public ObjectsData _objectsData;
-    public Transform parent;
 
     public LayerMask layerMask;
 
@@ -30,7 +29,7 @@ public class SpawnObject : MonoBehaviour
             if (newObject != null)
             {
                 newObject.transform.localScale = new Vector3(objectSize, objectSize, objectSize);
-                Instantiate(newObject, pickedPosition, NewRotation(_objectsData.objects[pickedObject].rotateZ), parent);
+                Instantiate(newObject, pickedPosition, NewRotation(_objectsData.objects[pickedObject].rotateZ), transform);
             }
             else numberOfObjects -= 1;
         }
@@ -60,13 +59,13 @@ public class SpawnObject : MonoBehaviour
 
     private void DestroyObjectsIfExists()
     {
-        if (parent.childCount > 0)
+        if (transform.childCount > 0)
         {
             List<GameObject> allObjects = new List<GameObject>();
 
-            for (int i = 0; i < parent.childCount; i++)
+            for (int i = 0; i < transform.childCount; i++)
             {
-                allObjects.Add(parent.GetChild(i).gameObject);
+                allObjects.Add(transform.GetChild(i).gameObject);
             }
 
             foreach (GameObject singleObject in allObjects)

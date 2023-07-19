@@ -8,9 +8,10 @@ public class MapGenerator : MonoBehaviour
     public enum DrawMode { NoiseMap, Mesh, FalloffMap };
     public DrawMode drawMode;
 
-    public TerrainData terrainData;
-    public NoiseData noiseData;
-    public TextureData textureData;
+    public NewMapData selectedMap;
+    [HideInInspector] public TerrainData terrainData;
+    [HideInInspector] public NoiseData noiseData;
+    [HideInInspector] public TextureData textureData;
 
     public Material terrainMaterial;
     public static int seed;
@@ -20,7 +21,7 @@ public class MapGenerator : MonoBehaviour
 
     public bool autoUpdate;
 
-    float[,] falloffMap;
+    private float[,] falloffMap;
 
     Queue<MapThreadInfo<MapData>> mapDataThreadInfoQueue = new Queue<MapThreadInfo<MapData>>();
     Queue<MapThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<MapThreadInfo<MeshData>>();
@@ -56,6 +57,10 @@ public class MapGenerator : MonoBehaviour
 
     public void DrawMapInEditor()
     {
+        terrainData = selectedMap._terrainData;
+        noiseData = selectedMap._noiseData;
+        textureData = selectedMap._textureData;
+
         MapData mapData = GenerateMapData(Vector2.zero);
 
         MapDisplay display = FindObjectOfType<MapDisplay>();

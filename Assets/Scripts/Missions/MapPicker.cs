@@ -24,7 +24,7 @@ public class MapPicker
             notPickedMaps.Add(i);
         }
 
-        //Picking some of the maps
+        //Picking random maps
         for (int i = 0; i < cards.Length; i++)
         {
             int randomNumber = Random.Range(0, notPickedMaps.Count);
@@ -45,7 +45,6 @@ public class MapPicker
         {
             cards[i].transform.GetChild(1).GetComponent<Image>().sprite = _mapDatas[i].mapImage;
             cards[i].transform.GetChild(2).GetComponent<TMP_Text>().text = _mapDatas[i].mapName;
-/*            cards[i].transform.GetChild(3).GetComponent<TMP_Text>().text = _mapDatas[i].mapInformations;*/
 
             switch (_mapDatas[i].mapDangerLevel)
             {
@@ -79,9 +78,7 @@ public class MapPicker
         MapGenerator _mapGenerator = mapGenerator.GetComponent<MapGenerator>();
         SpawnObject _spawnObject = mapGenerator.GetComponent<SpawnObject>();
 
-        _mapGenerator.noiseData = _mapDatas[i]._noiseData;
-        _mapGenerator.terrainData = _mapDatas[i]._terrainData;
-        _mapGenerator.textureData = _mapDatas[i]._textureData;
+        _mapGenerator.selectedMap = _mapDatas[i];
         _spawnObject._objectsData = _mapDatas[i]._objectsData;
 
         CardsActivity(false);
