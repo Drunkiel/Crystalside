@@ -4,10 +4,10 @@ public class NpcController : MonoBehaviour
 {
     public bool isNPCStopped;
     public float speed;
-    public float cooldown;
+    [SerializeField] private float cooldown;
+    [SerializeField] private bool onTheGround;
     public LayerMask layerMask;
-    public Vector3 newPosition;
-    public GameObject test;
+    private Vector3 newPosition;
 
     public Rigidbody rgBody;
 
@@ -20,22 +20,47 @@ public class NpcController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isNPCStopped) MoveNPC();
-        if(Vector3.Distance(transform.position, newPosition) <= 3)
+        onTheGround = Physics.Raycast(transform.position, Vector3.down, 3.5f, layerMask);
+
+        float distance = Vector3.Distance(transform.position, newPosition);
+        if (distance <= 3)
         {
             if (cooldown <= 0)
             {
                 newPosition = GetNewPosition();
                 cooldown = Random.Range(5, 10);
             }
-            else cooldown -= Time.deltaTime;
+            else
+            {
+                StopNPC();
+                cooldown -= Time.deltaTime;
+            }
         }
+
+        if (!isNPCStopped && onTheGround && rgBody.velocity.x < 0.5f && rgBody.velocity.z < 0.5f) JumpNPC();
+    }
+
+    private void FixedUpdate()
+    {
+        if (!isNPCStopped) MoveNPC();
     }
 
     private void MoveNPC()
     {
-        rgBody.velocity = Vector3.ClampMagnitude(rgBody.velocity, speed);
-        rgBody.AddForce((newPosition - transform.position) * speed * Time.deltaTime);
+        //Rotate to new position
+        Vector3 direction = newPosition - transform.position;
+        direction.y = 0f;
+        Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 5 * Time.deltaTime);
+
+        //Move forward
+        Vector3 movement = transform.forward * speed * Time.deltaTime;
+        rgBody.AddForce(movement);
+    }
+
+    private void JumpNPC()
+    {
+        if (rgBody.velocity.y < 3) rgBody.AddForce(Vector3.up * speed);
     }
 
     private Vector3 GetNewPosition()
@@ -46,11 +71,16 @@ public class NpcController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(new Vector3(x, 100, z), transform.TransformDirection(Vector3.down), out hit, 150f, layerMask))
         {
-            Instantiate(test, hit.point, Quaternion.identity);
+            isNPCStopped = false;
             return new Vector3(hit.point.x, hit.point.y + 2, hit.point.z);
         }
-        else GetNewPosition();
 
         return transform.position;
+    }
+
+    private void StopNPC()
+    {
+        isNPCStopped = true;
+        rgBody.velocity = Vector3.zero;
     }
 }
