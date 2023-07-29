@@ -22,11 +22,11 @@ public class NPCMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        onTheGround = Physics.Raycast(transform.position, Vector3.down, 2f, layerMask);
+        onTheGround = Physics.Raycast(transform.position, Vector3.down, 2.2f, layerMask);
 
-        if (!_npcController.isNPCStopped && !_npcController.isNPCTalking)
+        if (!_npcController.isNPCTalking)
         {
-            float distance = Vector3.Distance(transform.position, newPosition);
+            float distance = Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z), new Vector3(newPosition.x, 0, newPosition.z));
             if (distance <= 3)
             {
                 if (cooldown <= 0)
@@ -42,10 +42,10 @@ public class NPCMovement : MonoBehaviour
             }
             else if (distance > 3) _npcController.isNPCStopped = false;
 
-            if (onTheGround && rgBody.velocity.x < 0.5f && rgBody.velocity.z < 0.5f) JumpNPC();
+            if (!_npcController.isNPCStopped && onTheGround && rgBody.velocity.x < 0.5f && rgBody.velocity.z < 0.5f) JumpNPC();
         }
 
-        if (_npcController.isNPCTalking) RotateTo(GameObject.Find("Player").transform.position);
+        if (_npcController.isNPCTalking) RotateTo(transform, GameObject.Find("Player").transform.position);
     }
 
     private void FixedUpdate()
@@ -53,22 +53,22 @@ public class NPCMovement : MonoBehaviour
         if (!_npcController.isNPCStopped && !_npcController.isNPCTalking) MoveNPC();
     }
 
-    public void MoveNPC()
+    private void MoveNPC()
     {
         //Rotate to new position
-        RotateTo(newPosition);
+        RotateTo(transform, newPosition);
 
         //Move forward
         Vector3 movement = transform.forward * _npcController._info.speed * Time.deltaTime;
         rgBody.AddForce(movement);
     }
 
-    private void RotateTo(Vector3 positionToRotate)
+    public void RotateTo(Transform transformToRotate, Vector3 positionToRotate)
     {
-        Vector3 direction = positionToRotate - transform.position;
+        Vector3 direction = positionToRotate - transformToRotate.position;
         direction.y = 0f;
         Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime);
+        transformToRotate.rotation = Quaternion.Slerp(transformToRotate.rotation, targetRotation, Time.deltaTime);
     }
 
     private void JumpNPC()
@@ -85,7 +85,7 @@ public class NPCMovement : MonoBehaviour
         if (Physics.Raycast(new Vector3(x, 100, z), transform.TransformDirection(Vector3.down), out hit, 150f, layerMask))
         {
             _npcController.isNPCStopped = false;
-            return new Vector3(hit.point.x, hit.point.y + 2, hit.point.z);
+            return hit.point;
         }
 
         return transform.position;
