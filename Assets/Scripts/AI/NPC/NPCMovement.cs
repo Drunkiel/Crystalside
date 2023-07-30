@@ -3,9 +3,11 @@ using UnityEngine;
 public class NPCMovement : MonoBehaviour
 {
     [SerializeField] private float cooldown;
+    private float stuckCooldown = 5f;
     [SerializeField] private bool onTheGround;
     public LayerMask layerMask;
     private Vector3 newPosition;
+    private Transform transformToMoveAround;
 
     private NpcController _npcController;
     private Rigidbody rgBody;
@@ -15,6 +17,9 @@ public class NPCMovement : MonoBehaviour
     {
         rgBody = GetComponent<Rigidbody>();
         _npcController = GetComponent<NpcController>();
+
+        if (_npcController._info.npcRole == Role.Priest) transformToMoveAround = transform;
+        else transformToMoveAround = GameObject.Find("NPC_Priest").transform;
 
         newPosition = GetNewPosition();
     }
@@ -40,9 +45,17 @@ public class NPCMovement : MonoBehaviour
                     cooldown -= Time.deltaTime;
                 }
             }
-            else if (distance > 3) _npcController.isNPCStopped = false;
+            else if (distance > 3)
+            {
+                _npcController.isNPCStopped = false;
+                StuckNPC();
+            }
 
-            if (!_npcController.isNPCStopped && onTheGround && rgBody.velocity.x < 0.5f && rgBody.velocity.z < 0.5f) JumpNPC();
+            if (!_npcController.isNPCStopped)
+            {
+                if (onTheGround && rgBody.velocity.x < 0.5f && rgBody.velocity.z < 0.5f) JumpNPC();
+                if (!onTheGround && distance > 20 && rgBody.velocity.x <= 0.1f && rgBody.velocity.z <= 0.1f) GetNewPosition();
+            }
         }
 
         if (_npcController.isNPCTalking) RotateTo(transform, GameObject.Find("Player").transform.position);
@@ -78,17 +91,26 @@ public class NPCMovement : MonoBehaviour
 
     private Vector3 GetNewPosition()
     {
-        float x = transform.position.x + Random.Range(0f, 30f);
-        float z = transform.position.x + Random.Range(0f, 30f);
+        float x = transformToMoveAround.position.x + Random.Range(0f, 20f);
+        float z = transformToMoveAround.position.z + Random.Range(0f, 20f);
 
         RaycastHit hit;
-        if (Physics.Raycast(new Vector3(x, 100, z), transform.TransformDirection(Vector3.down), out hit, 150f, layerMask))
+        if (Physics.Raycast(new Vector3(x, 100, z), transformToMoveAround.TransformDirection(Vector3.down), out hit, 150f, layerMask))
         {
             _npcController.isNPCStopped = false;
             return hit.point;
         }
 
-        return transform.position;
+        return transformToMoveAround.position;
+    }
+
+    private void StuckNPC()
+    {
+        if (rgBody.velocity.x < 0.3f && rgBody.velocity.z < 0.3f)
+        {
+            if (stuckCooldown <= 0) GetNewPosition();
+            else stuckCooldown -= Time.deltaTime;
+        }
     }
 
     public void StopNPC()
