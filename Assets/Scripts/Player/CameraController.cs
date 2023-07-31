@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour
     private float maxXRotation;
     public Animator playerAnim;
 
-    public float pickupDistance;
+    public float interactionDistance;
     public LayerMask layerMask;
 
     // Start is called before the first frame update
@@ -62,7 +62,7 @@ public class CameraController : MonoBehaviour
 
     private void LookForInteraction()
     {
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, pickupDistance, layerMask))
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, interactionDistance, layerMask))
         {
             if (hit.transform.TryGetComponent(out PickupItem _pickupItem))
             {

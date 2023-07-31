@@ -10,6 +10,11 @@ public class GameController : MonoBehaviour
     public MissionController _missionController;
     public PlayerController _playerController;
 
+    void Awake()
+    {
+        _playerController.anim.SetTrigger("TPose");
+    }
+
     void Update()
     {
         if (isGamePlaying && !isGamePaused)
@@ -35,7 +40,7 @@ public class GameController : MonoBehaviour
         isGamePlaying = true;
         isGamePaused = false;
 
-        _gameTimer.SetNewTimer(1);
+        _gameTimer.SetNewTimer(1000000);
         _missionController.unityEvent.Invoke();
     }
 
@@ -43,6 +48,8 @@ public class GameController : MonoBehaviour
     {
         isGamePlaying = false;
         isGamePaused = false;
+
+        _playerController.anim.SetTrigger("TPose");
 
         //Set new player position
         Transform player = GameObject.Find("Player").transform;
