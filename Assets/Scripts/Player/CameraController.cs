@@ -68,14 +68,14 @@ public class CameraController : MonoBehaviour
             {
                 CursorController.instance.ChangeCursor(1);
 
-                if (Input.GetKeyDown(KeyCode.E)) _pickupItem.Pickup();
+                if (Input.GetKeyDown(KeyCode.F)) _pickupItem.Pickup();
             }
 
             if (hit.transform.TryGetComponent(out UIController _UIController))
             {
                 CursorController.instance.ChangeCursor(2);
 
-                if (Input.GetKeyDown(KeyCode.E)) _UIController.OpenCloseUI();
+                if (Input.GetKeyDown(KeyCode.F)) _UIController.OpenCloseUI();
             }
         }
         else CursorController.instance.ChangeCursor(0);

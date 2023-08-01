@@ -13,9 +13,9 @@ public class CursorController : MonoBehaviour
 
     public void ChangeCursor(int cursorID)
     {
-        if (cursors[cursorID].activeSelf) return;
+        if (cursorID != 0 && cursors[cursorID].activeSelf) return;
 
-        for (int i = 0; i < cursors.Length; i++)
+        for (int i = 1; i < cursors.Length; i++)
         {
             cursors[i].SetActive(false);
         }
