@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "New TerrainData",menuName = "MapGenerator")]
+[CreateAssetMenu(menuName = "Map generator/TerrainData")]
 public class TerrainData : UpdatableData
 {
 	public float uniformScale = 2.5f;

@@ -77,6 +77,13 @@ public class CameraController : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.F)) _UIController.OpenCloseUI();
             }
+
+            if (hit.transform.TryGetComponent(out DialogController _dialogController))
+            {
+                CursorController.instance.ChangeCursor(2);
+
+                if (Input.GetKeyDown(KeyCode.F)) _UIController.OpenCloseUI();
+            }
         }
         else CursorController.instance.ChangeCursor(0);
     }

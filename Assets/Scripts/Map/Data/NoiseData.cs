@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "New NoiseData", menuName = "MapGenerator")]
+[CreateAssetMenu(menuName = "Map generator/NoiseData")]
 public class NoiseData : UpdatableData
 {
 	public Noise.NormalizeMode normalizeMode;

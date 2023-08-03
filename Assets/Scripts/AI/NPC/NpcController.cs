@@ -13,7 +13,7 @@ public class NpcController : MonoBehaviour
     {
         _movement = GetComponent<NPCMovement>();
 
-        _info.npcTag.transform.GetChild(1).GetChild(1).GetComponent<TMP_Text>().text = _info.npcRole.ToString();
+        _info.npcTag.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "Bob the " + _info.npcRole;
     }
 
     // Update is called once per frame

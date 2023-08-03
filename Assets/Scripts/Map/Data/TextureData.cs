@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "New TextureData", menuName = "MapGenerator")]
+[CreateAssetMenu(menuName = "Map generator/TextureData")]
 public class TextureData : UpdatableData
 {
 	public Color[] baseColours;
