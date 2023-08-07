@@ -85,7 +85,7 @@ public class CameraController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.F))
                 {
                     GameObject dialogMenu = GameObject.FindGameObjectWithTag("DialogMenu");
-                    dialogMenu.GetComponent<UIController>().OpenCloseUI();
+                    dialogMenu.GetComponent<DialogController>()._npcController = _dialogHolder.GetComponent<NpcController>();
                     dialogMenu.GetComponent<DialogController>().StartDialog(_dialogHolder._dialogData);
                 }
             }

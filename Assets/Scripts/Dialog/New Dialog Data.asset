@@ -19,6 +19,10 @@ MonoBehaviour:
     responseTexts:
     - Helo I'm a Bob
     - Porn
-  _dialogActions:
-  - dialogActions: 
-    dialogEvents: []
+  - dialogTexts:
+    - Helo
+    - Bombastic side eye
+    responseTexts:
+    - Helo I'm a Bob
+    - Cryminal offensive side eye
+  _dialogActions: []

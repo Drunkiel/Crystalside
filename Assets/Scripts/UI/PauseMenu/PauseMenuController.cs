@@ -15,6 +15,7 @@ public class PauseMenuController : MonoBehaviour
 
     private void PauseGame()
     {
+        Time.timeScale = 0f;
         GameController.isGamePlaying = false;
         GameController.isGamePaused = true;
         _UIController.OpenCloseUI();
@@ -22,6 +23,7 @@ public class PauseMenuController : MonoBehaviour
 
     public void UnPauseGame()
     {
+        Time.timeScale = 1f;
         GameController.isGamePlaying = true;
         GameController.isGamePaused = false;
         _UIController.OpenCloseUI();

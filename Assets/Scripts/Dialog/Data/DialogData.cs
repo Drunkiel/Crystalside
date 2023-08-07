@@ -6,14 +6,14 @@ using UnityEngine.UIElements;
 [System.Serializable]
 public class DialogOption
 {
-    public List<string> dialogTexts = new List<string>();
+    public string[] dialogTexts;
     public string[] responseTexts;
 }
 
 [System.Serializable]
 public class DialogAction
 {
-    [SerializeField] private bool[] dialogActions;
+    public bool[] isEvent;
     public UnityEvent[] dialogEvents;
 }
 
