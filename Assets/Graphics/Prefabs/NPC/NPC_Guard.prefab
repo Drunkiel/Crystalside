@@ -709,7 +709,7 @@ Transform:
   - {fileID: 5631449640891635015}
   - {fileID: 2989636579994790522}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &5536172134748807925
 Animator:
@@ -1410,6 +1410,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4725293934232663559}
     m_Modifications:
+    - target: {fileID: 1414403391711884766, guid: e653c2264d5fa2f42a356bf18d85607c, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4438152405599215668, guid: e653c2264d5fa2f42a356bf18d85607c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1494,9 +1498,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4815962221996343809, guid: e653c2264d5fa2f42a356bf18d85607c, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987752404821560553, guid: e653c2264d5fa2f42a356bf18d85607c, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5711027468450191232, guid: e653c2264d5fa2f42a356bf18d85607c, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6409562978943046172, guid: e653c2264d5fa2f42a356bf18d85607c, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6416022977068428759, guid: e653c2264d5fa2f42a356bf18d85607c, type: 3}
       propertyPath: m_Name
       value: NPCCanvasBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416022977068428759, guid: e653c2264d5fa2f42a356bf18d85607c, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7945910509506912649, guid: e653c2264d5fa2f42a356bf18d85607c, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883929129708329568, guid: e653c2264d5fa2f42a356bf18d85607c, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9043516005224896042, guid: e653c2264d5fa2f42a356bf18d85607c, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

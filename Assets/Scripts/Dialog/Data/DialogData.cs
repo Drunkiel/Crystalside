@@ -1,34 +1,25 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 
+[System.Serializable]
 public class DialogOption
 {
-    [SerializeField] private string dialogText1;
-    [SerializeField] private string dialogText2;
-    [SerializeField] private string dialogText3;
-    [SerializeField] private string dialogText4;
-
-    [SerializeField] private string responseText1;
-    [SerializeField] private string responseText2;
-    [SerializeField] private string responseText3;
-    [SerializeField] private string responseText4;
+    public List<string> dialogTexts = new List<string>();
+    public string[] responseTexts;
 }
 
+[System.Serializable]
 public class DialogAction
 {
-    [SerializeField] private bool dialogAction1;
-    [SerializeField] private bool dialogAction2;
-    [SerializeField] private bool dialogAction3;
-    [SerializeField] private bool dialogAction4;
-
-    public UnityEvent dialogEvent1;
-    public UnityEvent dialogEvent2;
-    public UnityEvent dialogEvent3;
-    public UnityEvent dialogEvent4;
+    [SerializeField] private bool[] dialogActions;
+    public UnityEvent[] dialogEvents;
 }
 
+[CreateAssetMenu()]
 public class DialogData : ScriptableObject
 {
-    public DialogOption[] _dialogOptions;
-    public DialogAction[] _dialogActions;
+    public List<DialogOption> _dialogOptions = new List<DialogOption>();
+    public List<DialogAction> _dialogActions = new List<DialogAction>();
 }
