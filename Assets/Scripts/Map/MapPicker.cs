@@ -49,16 +49,25 @@ public class MapPicker
             switch (_mapDatas[i].mapDangerLevel)
             {
                 case MapDangerLevel.Easy:
-                    cards[i].transform.GetChild(4).GetChild(0).GetComponent<Image>().color = new Color32(111, 255, 75, 255);
+                    cards[i].transform.GetChild(4).GetChild(2).GetChild(0).GetComponent<Image>().color = new Color32(111, 255, 75, 255);
                     break;
                 case MapDangerLevel.Medium:
-                    cards[i].transform.GetChild(4).GetChild(0).GetComponent<Image>().color = new Color32(255, 220, 75, 255);
+                    cards[i].transform.GetChild(4).GetChild(2).GetChild(0).GetComponent<Image>().color = new Color32(255, 220, 75, 255);
+                    cards[i].transform.GetChild(4).GetChild(2).GetChild(1).GetComponent<Image>().color = new Color32(255, 220, 75, 255);
                     break;
                 case MapDangerLevel.Hard:
-                    cards[i].transform.GetChild(4).GetChild(0).GetComponent<Image>().color = new Color32(255, 90, 75, 255);
+                    cards[i].transform.GetChild(4).GetChild(2).GetChild(0).GetComponent<Image>().color = new Color32(255, 90, 75, 255);
+                    cards[i].transform.GetChild(4).GetChild(2).GetChild(1).GetComponent<Image>().color = new Color32(255, 90, 75, 255);
+                    cards[i].transform.GetChild(4).GetChild(2).GetChild(2).GetComponent<Image>().color = new Color32(255, 90, 75, 255);
                     break;
                 case MapDangerLevel.EpicHard:
-                    cards[i].transform.GetChild(4).GetChild(0).GetComponent<Image>().color = new Color32(255, 75, 150, 255);
+                    for (int j = 0; j < 4; j++)
+                    {
+                        cards[i].transform.GetChild(4).GetChild(2).GetChild(0).GetComponent<Image>().color = new Color32(255, 75, 150, 255);
+                        cards[i].transform.GetChild(4).GetChild(2).GetChild(1).GetComponent<Image>().color = new Color32(255, 75, 150, 255);
+                        cards[i].transform.GetChild(4).GetChild(2).GetChild(2).GetComponent<Image>().color = new Color32(255, 75, 150, 255);
+                        cards[i].transform.GetChild(4).GetChild(2).GetChild(3).GetComponent<Image>().color = new Color32(255, 75, 150, 255);
+                    }
                     break;
             }
         }
