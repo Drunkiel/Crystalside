@@ -17,7 +17,7 @@ MonoBehaviour:
   distance:
     minDistance: 1
     maxDistance: 3
-  mapDangerLevel: 1
+  mapDangerLevel: 0
   _noiseData: {fileID: 11400000, guid: 53b39982076564ca8bcb4145ee12221f, type: 2}
   _terrainData: {fileID: 11400000, guid: b27b01fde31d84e0c824f649d30eec2d, type: 2}
   _textureData: {fileID: 11400000, guid: addd6b0c4581e4f73b0395a4943b9f57, type: 2}

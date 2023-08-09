@@ -45,31 +45,28 @@ public class MapPicker
         {
             cards[i].transform.GetChild(1).GetComponent<Image>().sprite = _mapDatas[i].mapImage;
             cards[i].transform.GetChild(2).GetComponent<TMP_Text>().text = _mapDatas[i].mapName;
-
-            switch (_mapDatas[i].mapDangerLevel)
+            Color32 newColor = GetDangerColor(_mapDatas[i].mapDangerLevel);
+            for (int j = 0; j < (int)_mapDatas[i].mapDangerLevel + 1; j++)
             {
-                case MapDangerLevel.Easy:
-                    cards[i].transform.GetChild(4).GetChild(2).GetChild(0).GetComponent<Image>().color = new Color32(111, 255, 75, 255);
-                    break;
-                case MapDangerLevel.Medium:
-                    cards[i].transform.GetChild(4).GetChild(2).GetChild(0).GetComponent<Image>().color = new Color32(255, 220, 75, 255);
-                    cards[i].transform.GetChild(4).GetChild(2).GetChild(1).GetComponent<Image>().color = new Color32(255, 220, 75, 255);
-                    break;
-                case MapDangerLevel.Hard:
-                    cards[i].transform.GetChild(4).GetChild(2).GetChild(0).GetComponent<Image>().color = new Color32(255, 90, 75, 255);
-                    cards[i].transform.GetChild(4).GetChild(2).GetChild(1).GetComponent<Image>().color = new Color32(255, 90, 75, 255);
-                    cards[i].transform.GetChild(4).GetChild(2).GetChild(2).GetComponent<Image>().color = new Color32(255, 90, 75, 255);
-                    break;
-                case MapDangerLevel.EpicHard:
-                    for (int j = 0; j < 4; j++)
-                    {
-                        cards[i].transform.GetChild(4).GetChild(2).GetChild(0).GetComponent<Image>().color = new Color32(255, 75, 150, 255);
-                        cards[i].transform.GetChild(4).GetChild(2).GetChild(1).GetComponent<Image>().color = new Color32(255, 75, 150, 255);
-                        cards[i].transform.GetChild(4).GetChild(2).GetChild(2).GetComponent<Image>().color = new Color32(255, 75, 150, 255);
-                        cards[i].transform.GetChild(4).GetChild(2).GetChild(3).GetComponent<Image>().color = new Color32(255, 75, 150, 255);
-                    }
-                    break;
+                cards[i].transform.GetChild(4).GetChild(2).GetChild(j).GetComponent<Image>().color = newColor;
             }
+        }
+    }
+
+    private Color32 GetDangerColor(MapDangerLevel dangerLevel)
+    {
+        switch (dangerLevel)
+        {
+            case MapDangerLevel.Easy:
+                return new Color32(111, 255, 75, 255);
+            case MapDangerLevel.Medium:
+                return new Color32(255, 220, 75, 255);
+            case MapDangerLevel.Hard:
+                return new Color32(255, 90, 75, 255);
+            case MapDangerLevel.EpicHard:
+                return new Color32(255, 75, 150, 255);
+            default:
+                return Color.white;
         }
     }
 
