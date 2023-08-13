@@ -1,5 +1,6 @@
 ﻿using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MapDisplay : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class MapDisplay : MonoBehaviour
 	public void DrawMesh(MeshData meshData)
 	{
 		meshFilter.sharedMesh = meshData.CreateMesh();
-		if (meshFilter.gameObject.TryGetComponent<MeshCollider>(out MeshCollider a)) DestroyImmediate(a);
+		if (meshFilter.gameObject.TryGetComponent(out MeshCollider a)) DestroyImmediate(a);
 		meshFilter.AddComponent<MeshCollider>();
 
 		meshFilter.transform.localScale = Vector3.one * FindObjectOfType<MapGenerator>().terrainData.uniformScale;
