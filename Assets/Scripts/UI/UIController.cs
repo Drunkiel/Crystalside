@@ -4,13 +4,15 @@ public class UIController : MonoBehaviour
 {
     public bool isUIOpen;
     public GameObject UI;
-    
-    public void OpenCloseUI()
+
+    public void OpenCloseUI(bool unPause = true)
     {
         isUIOpen = !isUIOpen;
         UI.SetActive(isUIOpen);
-        GameController.isGamePaused = isUIOpen;
-
-        CameraController.ChangeLockState(isUIOpen);
+        if (unPause)
+        {
+            GameController.isGamePaused = isUIOpen;
+            CameraController.ChangeLockState(isUIOpen);
+        }
     }
 }
