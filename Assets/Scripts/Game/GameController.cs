@@ -41,6 +41,7 @@ public class GameController : MonoBehaviour
         isGamePaused = false;
 
         _gameTimer.SetNewTimer(1000000);
+        _playerController.anim.SetTrigger("BackToNormal");
         _missionController.unityEvent.Invoke();
     }
 
@@ -53,7 +54,7 @@ public class GameController : MonoBehaviour
 
         //Set new player position
         Transform player = GameObject.Find("Player").transform;
-        player.position = new Vector2(0, 1102);
+        player.position = new Vector2(0, 1101.74f);
         player.rotation = Quaternion.identity;
         StatisticsController _statisticsController = player.GetComponent<PlayerController>()._statisticsController;
         _statisticsController.TakeOxygen(-(100 - _statisticsController.oxygen), true);
