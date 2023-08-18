@@ -62,7 +62,6 @@ public static class MeshGenerator
 					meshData.AddTriangle(a, d, c);
 					meshData.AddTriangle(d, a, b);
 				}
-
 				vertexIndex++;
 			}
 		}
@@ -171,14 +170,12 @@ public class MeshData
 			}
 		}
 
-
 		for (int i = 0; i < vertexNormals.Length; i++)
 		{
 			vertexNormals[i].Normalize();
 		}
 
 		return vertexNormals;
-
 	}
 
 	private Vector3 SurfaceNormalFromIndices(int indexA, int indexB, int indexC)
@@ -220,14 +217,10 @@ public class MeshData
 		mesh.vertices = vertices;
 		mesh.triangles = triangles;
 		mesh.uv = uvs;
-		if (useFlatShading)
-		{
-			mesh.RecalculateNormals();
-		}
-		else
-		{
-			mesh.normals = bakedNormals;
-		}
-		return mesh;
+
+		if (useFlatShading) mesh.RecalculateNormals();
+        else mesh.normals = bakedNormals;
+
+        return mesh;
 	}
 }

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b4d7a5ac58a75041bd195c37ecc3c26, type: 3}
+  m_Name: Desert Map
+  m_EditorClassIdentifier: 
+  mapImage: {fileID: 21300000, guid: e5600378dd761e64d9423790c482bf36, type: 3}
+  mapName: Earth
+  distance:
+    minDistance: 1
+    maxDistance: 3
+  mapDangerLevel: 0
+  _noiseData: {fileID: 11400000, guid: 198ec4e40f8cd9a41ae60d1d2de62d9d, type: 2}
+  _terrainData: {fileID: 11400000, guid: 268dae0639c39ee41a5e26de6cceb574, type: 2}
+  _textureData: {fileID: 11400000, guid: b62070af17eb0564e929350c4f3b888c, type: 2}
+  _objectsData: {fileID: 11400000, guid: 02fcc6faa339e574d838258a1eed5759, type: 2}

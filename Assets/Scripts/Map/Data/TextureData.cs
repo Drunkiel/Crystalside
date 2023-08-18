@@ -4,27 +4,31 @@
 public class TextureData : UpdatableData
 {
 	public Color[] baseColours;
-	[Range(0, 1)]
+	[Range(0, 20)]
 	public float[] baseStartHeights;
+	private string[] layers = new string[6] { "First", "Second", "Third", "Fourth", "Fifth", "Sixth" };
 
 	float savedMinHeight;
 	float savedMaxHeight;
 
 	public void ApplyToMaterial(Material material)
 	{
-		material.SetInt("baseColourCount", baseColours.Length);
-		material.SetColorArray("baseColours", baseColours);
-		material.SetFloatArray("baseStartHeights", baseStartHeights);
+		for (int i = 0; i < layers.Length; i++)
+		{
+            material.SetColor("_" + layers[i] + "_Layer_Color", baseColours[i]);
+        }
 
-		UpdateMeshHeights(material, savedMinHeight, savedMaxHeight);
+        UpdateMeshHeights(material, savedMinHeight, savedMaxHeight);
 	}
 
 	public void UpdateMeshHeights(Material material, float minHeight, float maxHeight)
 	{
-		savedMinHeight = minHeight;
-		savedMaxHeight = maxHeight;
+        savedMinHeight = minHeight;
+        savedMaxHeight = maxHeight;
 
-		material.SetFloat("minHeight", minHeight);
-		material.SetFloat("maxHeight", maxHeight);
-	}
+        for (int i = 0; i < layers.Length; i++)
+        {
+            material.SetFloat("_" + (i + 1) + "LayerHeight", baseStartHeights[i]);
+        }
+    }
 }
