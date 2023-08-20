@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class SpawnObject : MonoBehaviour
@@ -13,6 +14,8 @@ public class SpawnObject : MonoBehaviour
     public int numberOfObjects;
     private int pickedObject;
 
+    #region Spawning random objects
+
     public void SpawnRandomObjects()
     {
         //Destroy old objects
@@ -24,7 +27,7 @@ public class SpawnObject : MonoBehaviour
         //Spawning new objects
         for (int i = 0; i < numberOfObjects; i++)
         {
-            Vector3 pickedPosition = RandomPosition();
+            Vector3 pickedPosition = GetPosition();
             GameObject newObject = PickObjectBasedOnHeight(pickedPosition.y);
             if (newObject != null)
             {
@@ -33,28 +36,6 @@ public class SpawnObject : MonoBehaviour
             }
             else numberOfObjects -= 1;
         }
-    }
-
-    private int SetNumberOfObjects()
-    {
-        int seed = MapGenerator.seed;
-        int[] numbers = new int[9];
-
-        for (int i = 0; i < 9; i++)
-        {
-            numbers[i] = seed % 10;
-            seed /= 10; 
-        }
-
-        int allObjectsToSpawn = 0;
-
-        foreach (var biome in _objectsData.biomes)
-        {
-            biome.spawnableObjects = (numbers[biome.defineObjectsSeed[0]] + numbers[biome.defineObjectsSeed[1]] + numbers[biome.defineObjectsSeed[2]]) * numbers[numbers.Length - 1];
-            allObjectsToSpawn += biome.spawnableObjects;
-        }
-
-        return allObjectsToSpawn;
     }
 
     private void DestroyObjectsIfExists()
@@ -75,25 +56,17 @@ public class SpawnObject : MonoBehaviour
         }
     }
 
-    private Vector3 RandomPosition()
+    private int SetNumberOfObjects()
     {
-        //Random position
-        float x = Random.Range(-mapSize, mapSize + 1);
-        float z = Random.Range(-mapSize, mapSize + 1);
+        int allObjectsToSpawn = 0;
 
-        //Send raycast
-        RaycastHit hit;
-        if (!Physics.Raycast(new Vector3(x, 100, z), transform.TransformDirection(Vector3.down), out hit, 150f, layerMask)
-            || Vector3.Distance(hit.point, Vector3.zero) > mapSize) return RandomPosition();
+        foreach (var biome in _objectsData.biomes)
+        {
+            biome.numberOfObjectsToSpawn = Random.Range(biome.minObjectsToSpawn, biome.minObjectsToSpawn * 4);
+            allObjectsToSpawn += biome.numberOfObjectsToSpawn;
+        }
 
-        return new Vector3(x, 100 - hit.distance - 0.1f, z);
-    }
-
-    private Quaternion NewRotation(bool rotateZ)
-    {
-       if (rotateZ) return Quaternion.Euler(-90f, Random.Range(0, 359f), 0f);
-
-        return Quaternion.Euler(0f, Random.Range(0, 359f), 0f);
+        return allObjectsToSpawn;
     }
 
     private GameObject PickObjectBasedOnHeight(float height)
@@ -114,4 +87,47 @@ public class SpawnObject : MonoBehaviour
             objectSize = Random.Range(_objectsData.objects[pickedObject].spawnSize[0], _objectsData.objects[pickedObject].spawnSize[1]);
         return _objectsData.objects[pickedObject].prefab;
     }
+
+    #endregion
+
+    #region Spawning Structures
+
+    public void SpawnStructures()
+    {
+        for (int i = 0; i < _objectsData.structures.Length; i++)
+        {
+            Vector3 pickedPosition = GetPosition(false);
+            Instantiate(_objectsData.structures[i].prefab, pickedPosition, NewRotation(), transform);
+        }
+    }
+
+    #endregion
+
+    private Vector3 GetPosition(bool isRandom = true)
+    {
+        //Random position
+        float x = 0;
+        float z = 0;
+
+        if (isRandom)
+        {
+            x = Random.Range(-mapSize, mapSize + 1);
+            z = Random.Range(-mapSize, mapSize + 1);
+        }
+
+        //Send raycast
+        RaycastHit hit;
+        if (!Physics.Raycast(new Vector3(x, 100, z), transform.TransformDirection(Vector3.down), out hit, 150f, layerMask)
+            || Vector3.Distance(hit.point, Vector3.zero) > mapSize) return GetPosition(isRandom);
+
+        return new Vector3(x, 100 - hit.distance - 0.1f, z);
+    }
+
+    private Quaternion NewRotation(bool rotateZ = false)
+    {
+        if (rotateZ) return Quaternion.Euler(-90f, Random.Range(0, 359f), 0f);
+
+        return Quaternion.Euler(0f, Random.Range(0, 359f), 0f);
+    }
+
 }

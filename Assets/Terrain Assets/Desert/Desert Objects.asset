@@ -14,96 +14,56 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objects:
   - id: 0
-    prefab: {fileID: 6117783013620700633, guid: fa8a4a2c620928e4a8a4ecabee89f0b5, type: 3}
+    prefab: {fileID: 3654347836268202006, guid: ce8a80dc01da52c4d86f738072b5d2f7, type: 3}
     spawnHeight:
-    - -1
-    - 0.3
+    - 0.1
+    - 0.35
     spawnSize:
+    - 0.5
     - 1
-    - 2
     rotateZ: 0
   - id: 1
-    prefab: {fileID: 3164607828578136105, guid: 53f3ba549c8ae8149b45656efe22f6a0, type: 3}
+    prefab: {fileID: 5407680620286513421, guid: d34a6d53aee0b314bb5b5bf167cc56b0, type: 3}
     spawnHeight:
-    - -1
-    - 0.3
+    - 0.1
+    - 0.35
     spawnSize:
-    - 1
-    - 2
-    rotateZ: 1
+    - 0.5
+    - 4
+    rotateZ: 0
   - id: 2
-    prefab: {fileID: 7869284453718432521, guid: 550a9fcd1fbb96b45b7f5dcb8929037d, type: 3}
+    prefab: {fileID: 6683303814206613449, guid: 2160e97e2bf0c8845888846058b6639a, type: 3}
     spawnHeight:
-    - -1
-    - 0.3
+    - 0.1
+    - 0.35
     spawnSize:
-    - 1
-    - 2
+    - 0.5
+    - 5
     rotateZ: 0
   - id: 3
-    prefab: {fileID: 168064, guid: fb8ae0828a555f74996970b8d0495f15, type: 3}
+    prefab: {fileID: 1187937726101428450, guid: fecab21f698bc8647a24f578d4a047a6, type: 3}
     spawnHeight:
-    - 3
-    - 20
+    - 0.1
+    - 0.35
     spawnSize:
-    - 1
-    - 8
+    - 0.5
+    - 5
     rotateZ: 0
   - id: 4
-    prefab: {fileID: 149218, guid: fc05c8bfad7df5a4abe568aca7403b9e, type: 3}
+    prefab: {fileID: 8022528531185363300, guid: 936eafa1a3280e74397edd18fa24dad9, type: 3}
     spawnHeight:
-    - 3
-    - 20
+    - 0.35
+    - 50
     spawnSize:
-    - 1
-    - 8
-    rotateZ: 0
-  - id: 5
-    prefab: {fileID: 116970, guid: e4563b5c1404fc246b16cfb1d56a8ce6, type: 3}
-    spawnHeight:
-    - 3
-    - 20
-    spawnSize:
-    - 1
-    - 8
-    rotateZ: 0
-  - id: 6
-    prefab: {fileID: 8126006226487508222, guid: 591d16177c712214eb2130996326b463, type: 3}
-    spawnHeight:
-    - 3
-    - 100
-    spawnSize:
-    - 1
     - 5
+    - 10
     rotateZ: 1
-  - id: 7
-    prefab: {fileID: 7296309576268356513, guid: 2866c79d491bb0e4fb4b5a0f9f0932a9, type: 3}
-    spawnHeight:
-    - 70
-    - 100
-    spawnSize:
-    - 1
-    - 1
-    rotateZ: 0
   biomes:
-  - name: Ocean
-    minHeight: -1
-    maxHeight: 1
-    defineObjectsSeed: 000000000100000002000000
-    spawnableObjects: -1976
-  - name: Plains
-    minHeight: 3
-    maxHeight: 25
-    defineObjectsSeed: 010000000200000003000000
-    spawnableObjects: -1738
-  - name: Mountains
-    minHeight: 25
-    maxHeight: 60
-    defineObjectsSeed: 020000000300000004000000
-    spawnableObjects: -1196
-  - name: Snow Peak
-    minHeight: 60
-    maxHeight: 100
-    defineObjectsSeed: 030000000400000005000000
-    spawnableObjects: 52
-  structures: []
+  - name: Wilderness
+    minHeight: 0
+    maxHeight: 50
+    minObjectsToSpawn: 20
+    numberOfObjectsToSpawn: 66
+  structures:
+  - id: 0
+    prefab: {fileID: 5811737791014594213, guid: dd32dbb827aac3045b5760bd5d5b5cde, type: 3}

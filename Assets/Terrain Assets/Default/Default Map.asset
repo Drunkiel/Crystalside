@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b4d7a5ac58a75041bd195c37ecc3c26, type: 3}
   m_Name: Default Map
   m_EditorClassIdentifier: 
-  mapImage: {fileID: 21300000, guid: e5600378dd761e64d9423790c482bf36, type: 3}
+  mapImage: {fileID: 21300000, guid: 927bbf7b97f91e84484adf5d73dcb743, type: 3}
   mapName: Earth
   distance:
     minDistance: 1

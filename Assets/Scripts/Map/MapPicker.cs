@@ -91,5 +91,6 @@ public class MapPicker
         isMapPicked = true;
         _mapGenerator.DrawMapInEditor();
         _spawnObject.SpawnRandomObjects();
+        _spawnObject.SpawnStructures();
     }
 }

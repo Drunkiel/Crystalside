@@ -24,8 +24,8 @@ public class Biomes
     public string name;
     public float minHeight;
     public float maxHeight;
-    public int[] defineObjectsSeed = new int[3];
-    public int spawnableObjects;
+    public int minObjectsToSpawn;
+    [HideInInspector] public int numberOfObjectsToSpawn;
 }
 
 [System.Serializable]
@@ -33,5 +33,4 @@ public class Structure
 {
     public int id;
     public GameObject prefab;
-    public float[] spawnHeight = new float[2];
 }

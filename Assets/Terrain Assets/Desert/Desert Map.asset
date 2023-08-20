@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b4d7a5ac58a75041bd195c37ecc3c26, type: 3}
   m_Name: Desert Map
   m_EditorClassIdentifier: 
-  mapImage: {fileID: 21300000, guid: e5600378dd761e64d9423790c482bf36, type: 3}
-  mapName: Earth
+  mapImage: {fileID: 21300000, guid: b47caeaf94c16134481bf068aa22a27b, type: 3}
+  mapName: Desert
   distance:
-    minDistance: 1
-    maxDistance: 3
-  mapDangerLevel: 0
+    minDistance: 2
+    maxDistance: 5
+  mapDangerLevel: 1
   _noiseData: {fileID: 11400000, guid: 198ec4e40f8cd9a41ae60d1d2de62d9d, type: 2}
-  _terrainData: {fileID: 11400000, guid: 268dae0639c39ee41a5e26de6cceb574, type: 2}
+  _terrainData: {fileID: 11400000, guid: 01e428d1c1935d54681657463dba0bc3, type: 2}
   _textureData: {fileID: 11400000, guid: b62070af17eb0564e929350c4f3b888c, type: 2}
   _objectsData: {fileID: 11400000, guid: 02fcc6faa339e574d838258a1eed5759, type: 2}
