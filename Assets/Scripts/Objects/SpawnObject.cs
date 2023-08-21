@@ -129,5 +129,4 @@ public class SpawnObject : MonoBehaviour
 
         return Quaternion.Euler(0f, Random.Range(0, 359f), 0f);
     }
-
 }

@@ -55,7 +55,7 @@ MonoBehaviour:
     - 0.35
     - 50
     spawnSize:
-    - 5
+    - 3
     - 10
     rotateZ: 1
   biomes:
@@ -63,7 +63,7 @@ MonoBehaviour:
     minHeight: 0
     maxHeight: 50
     minObjectsToSpawn: 20
-    numberOfObjectsToSpawn: 66
+    numberOfObjectsToSpawn: 68
   structures:
   - id: 0
-    prefab: {fileID: 5811737791014594213, guid: dd32dbb827aac3045b5760bd5d5b5cde, type: 3}
+    prefab: {fileID: 4311272309974034727, guid: 351dfd6e598aefd45aebf29a6f4f817a, type: 3}
