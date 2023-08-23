@@ -56,6 +56,7 @@ public class GameController : MonoBehaviour
         Transform player = GameObject.Find("Player").transform;
         player.position = new Vector2(0, 1101.74f);
         player.rotation = Quaternion.identity;
+        CameraController.xRotation = 0;
         StatisticsController _statisticsController = player.GetComponent<PlayerController>()._statisticsController;
         _statisticsController.TakeOxygen(-(100 - _statisticsController.oxygen), true);
         Physics.SyncTransforms();

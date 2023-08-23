@@ -153,6 +153,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bonePrefab: {fileID: 2020604983257355158, guid: 0e30369b27b10794e9f1de2d8cd5cb40, type: 3}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &5148172102713082668
 GameObject:
   m_ObjectHideFlags: 0

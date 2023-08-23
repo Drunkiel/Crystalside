@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement")]
     public float moveSpeed;
+    public float sprintSpeed;
 
     public float groundDrag;
 
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode sprintKey = KeyCode.LeftShift;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -84,9 +86,7 @@ public class PlayerController : MonoBehaviour
         // calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        // on ground
-        if (grounded) rgBody.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-        // in air
+        if (grounded) rgBody.AddForce(moveDirection.normalized * Speed() * 10f, ForceMode.Force);
         else if (!grounded) rgBody.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
     }
 
@@ -95,11 +95,17 @@ public class PlayerController : MonoBehaviour
         Vector3 flatVel = new Vector3(rgBody.velocity.x, 0f, rgBody.velocity.z);
 
         // limit velocity if needed
-        if (flatVel.magnitude > moveSpeed)
+        if (flatVel.magnitude > Speed())
         {
             Vector3 limitedVel = flatVel.normalized * moveSpeed;
             rgBody.velocity = new Vector3(limitedVel.x, rgBody.velocity.y, limitedVel.z);
         }
+    }
+
+    private float Speed()
+    {
+        if (Input.GetKey(sprintKey)) return sprintSpeed;
+        else return moveSpeed;
     }
 
     private void Jump()

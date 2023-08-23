@@ -1,10 +1,12 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
-public class MapPicker
+public class MapPicker : MonoBehaviour
 {
     public static bool isMapPicked;
 
@@ -89,8 +91,36 @@ public class MapPicker
 
         CardsActivity(false);
         isMapPicked = true;
+
+        StartCoroutine(StartProcess(_mapGenerator, _spawnObject));
+    }
+
+    private IEnumerator StartProcess(MapGenerator _mapGenerator, SpawnObject _spawnObject)
+    {
+        // Kod do wykonania przed oczekiwaniem
+
+        yield return StartCoroutine(DrawMap(_mapGenerator)); // Poczekaj na zakoñczenie funkcji
+        yield return StartCoroutine(SpawnObjects(_spawnObject)); // Poczekaj na zakoñczenie funkcji
+        yield return StartCoroutine(SpawnStructures(_spawnObject)); // Poczekaj na zakoñczenie funkcji
+
+        // Kod do wykonania po zakoñczeniu funkcji
+    }
+
+    private IEnumerator DrawMap(MapGenerator _mapGenerator)
+    {
         _mapGenerator.DrawMapInEditor();
+        yield return null;
+    }
+
+    private IEnumerator SpawnObjects(SpawnObject _spawnObject)
+    {
         _spawnObject.SpawnRandomObjects();
+        yield return null;
+    }
+
+    private IEnumerator SpawnStructures(SpawnObject _spawnObject)
+    {
         _spawnObject.SpawnStructures();
+        yield return null;
     }
 }

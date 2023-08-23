@@ -5,7 +5,7 @@ public class CameraController : MonoBehaviour
     public Transform player;
     public Transform virtualCamera;
     public float mouseSensitivity;
-    private float xRotation;
+    public static float xRotation;
     private float minXRotation;
     private float maxXRotation;
     public Animator playerAnim;
@@ -26,6 +26,7 @@ public class CameraController : MonoBehaviour
         virtualCamera.rotation = player.rotation;
         virtualCamera.Rotate(xRotation, 0f, 0f);
 
+        //Rotate Player
         if (!PlayerController.isPlayerStopped) Rotate();
 
         //Looking for objects

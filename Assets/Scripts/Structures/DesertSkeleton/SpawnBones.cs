@@ -5,8 +5,8 @@ public class SpawnBones : MonoBehaviour
 {
     public GameObject bonePrefab;
     private int numberOfBones;
-    private float boneSize = 1;
     private int boneRotation;
+    public LayerMask layerMask;
 
     List<Transform> boneTransforms = new List<Transform>();
 
@@ -34,12 +34,15 @@ public class SpawnBones : MonoBehaviour
     {
         if (orTurn)
         {
-            if (turnLeft) boneRotation -= 10;
-            else boneRotation += 10;
+            if (turnLeft) boneRotation -= 10 - boneTransforms.Count;
+            else boneRotation += 10 - boneTransforms.Count;
         }
 
+        RaycastHit hit;
+        Physics.Raycast(new Vector3(spawnPosition.x, 100, spawnPosition.z), transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, layerMask);
+
         Quaternion boneRotationQuaternion = Quaternion.Euler(-90, 0, mainRotation.eulerAngles.y - boneRotation);
-        GameObject newBone = Instantiate(bonePrefab, spawnPosition, boneRotationQuaternion, transform);
+        GameObject newBone = Instantiate(bonePrefab, new Vector3(spawnPosition.x, hit.point.y - Random.Range(0, 6), spawnPosition.z), boneRotationQuaternion, transform);
         boneTransforms.Add(newBone.transform);
     }
 }
