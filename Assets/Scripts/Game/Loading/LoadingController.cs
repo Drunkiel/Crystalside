@@ -4,30 +4,33 @@ using UnityEngine.UI;
 
 public class LoadingController : MonoBehaviour
 {
+    private bool isLoaded;
+
     public Slider loadingSlider;
     public TMP_Text percentText;
 
-    private int frames;
-
     public UIController _UIController;
+
+    private void Start()
+    {
+        isLoaded = true;
+        /*_UIController.OpenCloseUI(true);*/
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (loadingSlider.value != loadingSlider.maxValue)
+        if (!isLoaded)
         {
-            frames++;
-
-            if (frames >= 10)
+            if (loadingSlider.value != loadingSlider.maxValue)
             {
-                UpdateSlider(1);
-                frames = 0;
+                UpdateSlider(0.1f);
             }
+            else EndLoading();
         }
-        else EndLoading();
     }
 
-    private void UpdateSlider(int number)
+    private void UpdateSlider(float number)
     {
         if (loadingSlider.value + number <= loadingSlider.maxValue) loadingSlider.value += number;
         else loadingSlider.value += loadingSlider.value + number - loadingSlider.maxValue;
@@ -38,6 +41,6 @@ public class LoadingController : MonoBehaviour
     private void EndLoading()
     {
         _UIController.OpenCloseUI(false);
-        Destroy(gameObject);
+        isLoaded = true;
     }
 }

@@ -28,6 +28,8 @@ public class SpawnBones : MonoBehaviour
             mainRotation = Quaternion.Euler(0, 10 * (turnLeft ? 1 : -1), 0) * mainRotation;
             SpawnSkeletonBones(orTurn, turnLeft, spawnPosition, mainRotation);
         }
+
+        Destroy(GetComponent<SpawnBones>());
     }
 
     private void SpawnSkeletonBones(bool orTurn, bool turnLeft, Vector3 spawnPosition, Quaternion mainRotation)
