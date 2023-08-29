@@ -9,15 +9,12 @@ public class NPCMovement : MonoBehaviour
     private Vector3 newPosition;
     private Transform transformToMoveAround;
 
-    private NpcController _npcController;
-    private Rigidbody rgBody;
+    [SerializeField] private NpcController _npcController;
+    [SerializeField] private Rigidbody rgBody;
 
     // Start is called before the first frame update
     void Start()
     {
-        rgBody = GetComponent<Rigidbody>();
-        _npcController = GetComponent<NpcController>();
-
         if (_npcController._info.npcRole == Role.Priest) transformToMoveAround = transform;
         else transformToMoveAround = GameObject.Find("NPC_Priest").transform;
 
@@ -91,8 +88,8 @@ public class NPCMovement : MonoBehaviour
 
     private Vector3 GetNewPosition()
     {
-        float x = transformToMoveAround.position.x + Random.Range(0f, 20f);
-        float z = transformToMoveAround.position.z + Random.Range(0f, 20f);
+        float x = transformToMoveAround.position.x + Random.Range(-20f, 20f);
+        float z = transformToMoveAround.position.z + Random.Range(-20f, 20f);
 
         RaycastHit hit;
         if (Physics.Raycast(new Vector3(x, 100, z), transformToMoveAround.TransformDirection(Vector3.down), out hit, 150f, layerMask))

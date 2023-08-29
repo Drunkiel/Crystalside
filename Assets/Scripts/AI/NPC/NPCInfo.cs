@@ -12,5 +12,5 @@ public class NPCInfo
 {
     public float speed;
     public Role npcRole;
-    public GameObject npcTag;
+    public NpcCanvasController npcCanvas;
 }

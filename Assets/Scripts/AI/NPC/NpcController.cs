@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 public class NpcController : MonoBehaviour
@@ -13,12 +12,12 @@ public class NpcController : MonoBehaviour
     {
         _movement = GetComponent<NPCMovement>();
 
-        _info.npcTag.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "Bob the " + _info.npcRole;
+        _info.npcCanvas.UpdateTitle(_info.npcRole.ToString());
     }
 
     // Update is called once per frame
     void Update()
     {
-        _movement.RotateTo(_info.npcTag.transform, GameObject.Find("Player").transform.position);
+        _movement.RotateTo(_info.npcCanvas.transform, GameObject.Find("Player").transform.position);
     }
 }

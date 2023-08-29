@@ -6,6 +6,7 @@ public class GunController : MonoBehaviour
     public int ammunitionInMagazine;
     private int maxAmmunitionInMagazine = 30;
     public int remainingMagazines;
+    public int range;
     public Transform point;
     public Transform player;
 
@@ -35,23 +36,14 @@ public class GunController : MonoBehaviour
         {
             ammunitionInMagazine -= 1;
 
-            Quaternion playerRotation = player.rotation;
-            Quaternion childRotation = transform.GetChild(0).rotation;
-
-            // Kombinacja rotacji gracza, obiektu i jego dziecka
-            Quaternion totalRotation = playerRotation * childRotation;
-
-            // Obliczanie kierunku raycasta na podstawie rotacji
-            Vector3 rayDirection = totalRotation * Vector3.forward;
-
             RaycastHit hit;
-            if (Physics.Raycast(point.position, point.forward, out hit, 50, layerMask))
+            if (Physics.Raycast(point.position, point.forward, out hit, range, layerMask))
             {
                 print(hit.collider.transform.name);
             }
 
             // Wizualizacja raycasta
-            Debug.DrawRay(point.position, point.forward * 50, Color.red, 1.0f);
+            Debug.DrawRay(point.position, point.forward * range, Color.red, 1.0f);
         }
     }
 
