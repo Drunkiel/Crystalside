@@ -3,46 +3,60 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private float cooldown;
-    private float stuckCooldown = 5f;
-    [SerializeField] private bool onTheGround;
+    [HideInInspector] public float distanceToAttack;
+    [HideInInspector] public float distanceToDestination;
+    public bool onTheGround;
     public LayerMask layerMask;
     private Vector3 newPosition;
 
-    [SerializeField] private EnemyController _enemyController;
-    [SerializeField] private Rigidbody rgBody;
-
+    public EnemyController _enemyController;
+    public Rigidbody rgBody;
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         newPosition = GetNewPosition();
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
-        onTheGround = Physics.Raycast(transform.position, Vector3.down, 2f, layerMask);
+        onTheGround = Physics.Raycast(transform.position, Vector3.down, 1.8f, layerMask);
+        distanceToDestination = Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z), new Vector3(newPosition.x, 0, newPosition.z));
 
-        float distance = Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z), new Vector3(newPosition.x, 0, newPosition.z));
-        if (distance <= 3)
+        if (_enemyController.isPatrolling)
         {
-            if (cooldown <= 0)
+            if (distanceToDestination <= 3)
             {
-                newPosition = GetNewPosition();
-                cooldown = Random.Range(5, 10);
+                if (cooldown <= 0)
+                {
+                    newPosition = GetNewPosition();
+                    cooldown = Random.Range(5, 10);
+                }
+                else
+                {
+                    cooldown -= Time.deltaTime;
+                }
             }
-            else
-            {
-                cooldown -= Time.deltaTime;
-            }
+
+            if (onTheGround && rgBody.velocity.x < 0.5f && rgBody.velocity.z < 0.5f) JumpNPC();
         }
 
-        if (onTheGround && rgBody.velocity.x < 0.5f && rgBody.velocity.z < 0.5f) JumpNPC();
+        if (_enemyController.isPlayerInRadius)
+        {
+            if (cooldown <= 0 && distanceToDestination < distanceToAttack)
+            {
+                Attack();
+                cooldown = Random.Range(0.5f, 2);
+            }
+            else cooldown -= Time.deltaTime;
+        }
     }
 
     private void FixedUpdate()
     {
         if (_enemyController.isPatrolling) MoveNPC();
+        if (_enemyController.isPlayerInRadius) GetDistanceToPlayer();
     }
 
     private Vector3 GetNewPosition()
@@ -59,19 +73,19 @@ public class EnemyMovement : MonoBehaviour
         return transform.position;
     }
 
-    private void MoveNPC()
+    public void MoveNPC(float additionalForce = 0f)
     {
         //Rotate to new position
         RotateTo(transform, newPosition);
 
         //Move forward
-        Vector3 movement = transform.forward * _enemyController._info.speed * Time.deltaTime;
+        Vector3 movement = transform.forward * (_enemyController._info.speed + additionalForce) * Time.deltaTime;
         rgBody.AddForce(movement);
     }
 
-    private void JumpNPC()
+    public void JumpNPC(float additionalForce = 0f)
     {
-        if (rgBody.velocity.y < 3) rgBody.AddForce(Vector3.up * _enemyController._info.speed);
+        if (rgBody.velocity.y < 3) rgBody.AddForce(Vector3.up * (_enemyController._info.speed + additionalForce));
     }
 
     public void RotateTo(Transform transformToRotate, Vector3 positionToRotate)
@@ -80,5 +94,16 @@ public class EnemyMovement : MonoBehaviour
         direction.y = 0f;
         Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
         transformToRotate.rotation = Quaternion.Slerp(transformToRotate.rotation, targetRotation, Time.deltaTime);
+    }
+
+    public virtual void Attack()
+    {
+
+    }
+
+    public virtual void GetDistanceToPlayer()
+    {
+        newPosition = GameObject.Find("Player").transform.position;
+        RotateTo(transform, newPosition);
     }
 }
