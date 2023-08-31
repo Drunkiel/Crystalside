@@ -54,7 +54,7 @@ public class GameController : MonoBehaviour
 
         //Set new player position
         Transform player = GameObject.Find("Player").transform;
-        player.position = new Vector2(0, 1101.74f);
+        player.position = new Vector2(0, 1100);
         player.rotation = Quaternion.identity;
         CameraController.xRotation = 0;
         StatisticsController _statisticsController = player.GetComponent<PlayerController>()._statisticsController;

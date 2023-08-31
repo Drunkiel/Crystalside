@@ -24,7 +24,7 @@ public class Mouse : EnemyMovement
 
         if (onTheGround)
         {
-            MoveNPC(distanceToDestination / 10);
+            MoveNPC(distanceToDestination);
             JumpNPC(2);
         }
     }
