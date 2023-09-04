@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
-    bool grounded;
+    [SerializeField] private bool grounded;
 
     public Transform orientation;
 
@@ -32,13 +32,11 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 moveDirection;
 
-    Rigidbody rgBody;
+    [SerializeField] private Rigidbody rgBody;
     public Animator anim;
 
     private void Start()
     {
-        rgBody = GetComponent<Rigidbody>();
-
         readyToJump = true;
     }
 
@@ -67,9 +65,6 @@ public class PlayerController : MonoBehaviour
 
         if ((horizontalInput != 0 || verticalInput != 0) && grounded) anim.SetBool("Walk", true);
         else anim.SetBool("Walk", false);
-
-        if (grounded) anim.SetBool("Jump", false);
-        else anim.SetBool("Jump", true);
 
         // when to jump
         if (Input.GetKey(jumpKey) && readyToJump && grounded)

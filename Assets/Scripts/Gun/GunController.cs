@@ -8,7 +8,7 @@ public class GunController : MonoBehaviour
     public int remainingMagazines;
     public int range;
     public Transform point;
-    public Transform player;
+    [SerializeField] private Animator anim;
 
     public LayerMask layerMask;
 
@@ -27,7 +27,7 @@ public class GunController : MonoBehaviour
     private void ShowHideGun()
     {
         isGunShowed = !isGunShowed;
-        transform.GetChild(0).gameObject.SetActive(isGunShowed);
+        anim.SetBool("IsWeaponEquipped", isGunShowed);
     }
 
     private void Shot()

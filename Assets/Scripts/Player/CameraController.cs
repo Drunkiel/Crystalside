@@ -3,12 +3,13 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public Transform player;
+    public Transform playerArms;
     public Transform virtualCamera;
     public float mouseSensitivity;
     public static float xRotation;
-    private float minXRotation;
-    private float maxXRotation;
-    public Animator playerAnim;
+    private float minXRotation = -40f;
+    private float maxXRotation = 90f;
+    [SerializeField] private Animator playerAnim;
 
     public float interactionDistance;
     public LayerMask layerMask;
@@ -25,6 +26,7 @@ public class CameraController : MonoBehaviour
         //Rotating virtual camera
         virtualCamera.rotation = player.rotation;
         virtualCamera.Rotate(xRotation, 0f, 0f);
+        playerArms.rotation = virtualCamera.rotation;
 
         //Rotate Player
         if (!PlayerController.isPlayerStopped) Rotate();
@@ -47,16 +49,7 @@ public class CameraController : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * 3 * Time.deltaTime;
 
         xRotation -= mouseY;
-        if (playerAnim.GetBool("Jump"))
-        {
-            minXRotation = 0f;
-            maxXRotation = 120f;
-        }
-        else if (minXRotation == 0)
-        {
-            minXRotation = -40f;
-            maxXRotation = 90f;
-        }
+
         xRotation = Mathf.Clamp(xRotation, minXRotation, maxXRotation);
         player.Rotate(Vector3.up * mouseX);
     }
